@@ -46,3 +46,8 @@ gen/
 # Coverage reports
 coverage.html
 coverage.out
+
+# Env file
+.env
+*.env
+.env.local

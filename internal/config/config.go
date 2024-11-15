@@ -91,3 +91,7 @@ func loadFromEnv() {
 	}
 	// Add more environment variables as needed
 }
+
+func GetGitHubToken() string {
+	return os.Getenv("GITHUB_TOKEN")
+}
