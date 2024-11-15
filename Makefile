@@ -45,10 +45,16 @@ init:
 init-repo:
 	@echo "Initializing GitHub repository..."
 	git init
-	gh repo create octokas/go-ai --private --source . --remote origin
+	git checkout -b trunk 2>/dev/null || git checkout trunk
+	@if gh repo create octokas/go-ai --private --source . --remote origin 2>/dev/null; then \
+		echo "Repository created successfully"; \
+	else \
+		echo "Repository already exists, setting remote origin..."; \
+		git remote add origin git@github.com:octokas/go-ai.git || true; \
+	fi
 	git add .
 	git commit -m "Initial commit"
-	git push -u origin main
+	git push -u origin trunk
 	@echo "Repository initialized at github.com/octokas/go-ai"
 
 # Help command
