@@ -52,18 +52,16 @@ func fixYAMLComments(filename string) (bool, error) {
 	return false, nil
 }
 
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: fix_yaml_comments <file1> [file2 ...]")
-		os.Exit(1)
+func FixYAMLComments(filenames ...string) error {
+	if len(filenames) == 0 {
+		return fmt.Errorf("no files provided")
 	}
 
 	changed := false
-	for _, filename := range os.Args[1:] {
+	for _, filename := range filenames {
 		wasChanged, err := fixYAMLComments(filename)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error processing %s: %v\n", filename, err)
-			os.Exit(1)
+			return fmt.Errorf("error processing %s: %v", filename, err)
 		}
 		if wasChanged {
 			fmt.Printf("Fixed comments in %s\n", filename)
@@ -72,6 +70,7 @@ func main() {
 	}
 
 	if changed {
-		os.Exit(1) // Exit with error if files were modified (useful for pre-commit)
+		return fmt.Errorf("files were modified")
 	}
+	return nil
 }

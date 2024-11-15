@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func main() {
+func GenerateChangelog() {
 	// Get the latest tag
 	lastTag, _ := exec.Command("git", "describe", "--tags", "--abbrev=0").Output()
 
