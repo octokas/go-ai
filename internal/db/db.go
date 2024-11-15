@@ -20,7 +20,7 @@ var (
 )
 
 func New(cfg *config.Config) (*Database, error) {
-	var err error
+	var initErr error
 	once.Do(func() {
 		log := logger.New()
 
@@ -35,11 +35,13 @@ func New(cfg *config.Config) (*Database, error) {
 
 		db, err := sql.Open("postgres", dsn)
 		if err != nil {
+			initErr = err
 			return
 		}
 
 		err = db.Ping()
 		if err != nil {
+			initErr = err
 			return
 		}
 
@@ -49,7 +51,10 @@ func New(cfg *config.Config) (*Database, error) {
 		}
 	})
 
-	return instance, err
+	if initErr != nil {
+		return nil, initErr
+	}
+	return instance, nil
 }
 
 func (d *Database) Close() error {

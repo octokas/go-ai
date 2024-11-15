@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"io"
 	"os"
 	"strconv"
 	"sync"
@@ -39,57 +40,66 @@ type DatabaseConfig struct {
 var (
 	config *Config
 	once   sync.Once
+	mutex  sync.Mutex
 )
 
-func LoadConfig() (Config, error) {
-	// Read environment variables and populate config
-	port := os.Getenv("PORT")
-	portNum, err := strconv.Atoi(port)
-	if err != nil {
-		return Config{}, err
-	}
+func Reset() {
+	mutex.Lock()
+	defer mutex.Unlock()
+	config = nil
+	once = sync.Once{}
+}
 
-	return Config{
-		Port:     portNum,
-		Env:      os.Getenv("ENV"),
-		LogLevel: os.Getenv("LOG_LEVEL"),
-	}, nil
+func LoadFromReader(reader io.Reader) (*Config, error) {
+	cfg := &Config{}
+	decoder := json.NewDecoder(reader)
+	if err := decoder.Decode(cfg); err != nil {
+		return nil, err
+	}
+	return cfg, nil
 }
 
 func Load() (*Config, error) {
 	var err error
 	once.Do(func() {
-		config = &Config{}
-		err = loadFromFile("config.json")
-		if err != nil {
-			return
+		var cfg *Config
+		cfg, err = loadConfig()
+		if err == nil {
+			config = cfg
 		}
-		loadFromEnv()
 	})
 	return config, err
 }
 
-func loadFromFile(filename string) error {
-	file, err := os.Open(filename)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	decoder := json.NewDecoder(file)
-	return decoder.Decode(config)
-}
-
-func loadFromEnv() {
-	if port := os.Getenv("SERVER_PORT"); port != "" {
-		if portNum, err := strconv.Atoi(port); err == nil {
-			config.Server.Port = portNum
+func loadConfig() (*Config, error) {
+	cfg := &Config{}
+	if file, err := os.Open("config.json"); err == nil {
+		defer file.Close()
+		if err := json.NewDecoder(file).Decode(cfg); err != nil {
+			return nil, err
 		}
 	}
+
+	if err := loadFromEnv(cfg); err != nil {
+		return nil, err
+	}
+
+	return cfg, nil
+}
+
+func loadFromEnv(cfg *Config) error {
 	if host := os.Getenv("SERVER_HOST"); host != "" {
-		config.Server.Host = host
+		cfg.Server.Host = host
+	}
+	if port := os.Getenv("SERVER_PORT"); port != "" {
+		portNum, err := strconv.Atoi(port)
+		if err != nil {
+			return err
+		}
+		cfg.Server.Port = portNum
 	}
 	// Add more environment variables as needed
+	return nil
 }
 
 func GetGitHubToken() string {

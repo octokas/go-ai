@@ -37,7 +37,7 @@ func TestHealthHandler(t *testing.T) {
 				t.Errorf("Expected status %d, got %d", tt.expectedStatus, w.Code)
 			}
 
-			if tt.expectedBody != "" && w.Body.String() != tt.expectedBody {
+			if tt.expectedBody != "" && w.Body.String() != tt.expectedBody+"\n" {
 				t.Errorf("Expected body %s, got %s", tt.expectedBody, w.Body.String())
 			}
 		})
