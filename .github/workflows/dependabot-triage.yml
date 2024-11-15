@@ -1,0 +1,26 @@
+name: Dependabot Triage
+on: pull_request
+
+permissions:
+  pull-requests: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels
+        if: steps.metadata.outputs.update-type != ''
+        run: |
+          gh pr edit "$PR_URL" --add-label "dependencies,${UPDATE_TYPE}"
+          gh pr comment "$PR_URL" --body "📦 Dependency update type: ${UPDATE_TYPE}"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }} 
