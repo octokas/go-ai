@@ -43,16 +43,23 @@ run-api:
 run-worker:
 	go run $(MAIN_WORKER)
 
-# Generate changelog
+# Generate and commit changelog
 changelog:
-	go run scripts/changelog.go
+	@echo "Generating changelog..."
+	@mkdir -p changelogs
+	@COMMIT_ID=$$(git rev-parse HEAD) && \
+	AUTHOR=$$(git config user.name) && \
+	VERSION=$$(date +%Y%m%d_%H%M%S)_$${COMMIT_ID:0:8} && \
+	go run scripts/changelog.go > changelogs/changelog_$${VERSION}.md && \
+	git add changelogs/changelog_$${VERSION}.md && \
+	git commit -m "docs: changelog for version $${VERSION} by $${AUTHOR}"
 
 # Initialize development environment
 init:
 	go mod tidy
 	go mod verify
 
-# Initialize GitHub repository
+# Initialize GitHub repository with pre-push hook
 init-repo:
 	@echo "Initializing GitHub repository..."
 	git init
@@ -63,6 +70,8 @@ init-repo:
 		echo "Repository already exists, setting remote origin..."; \
 		git remote add origin git@github.com:octokas/go-ai.git || true; \
 	fi
+	@echo "#!/bin/sh\nmake changelog" > .git/hooks/pre-push
+	@chmod +x .git/hooks/pre-push
 	git add .
 	git commit -m "Initial commit"
 	git push -u origin trunk
