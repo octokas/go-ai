@@ -88,6 +88,6 @@ func (mc *MetricsCollector) RecordRequest(path, method string, statusCode int, d
 	// Add any other metric recording logic here
 }
 
-func (c *MetricsCollector) GetMetrics() Metrics {
-	return c.metrics
+func (c *MetricsCollector) GetMetrics() *Metrics {
+	return &c.metrics
 }
