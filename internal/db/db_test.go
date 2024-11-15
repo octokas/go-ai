@@ -3,7 +3,7 @@ package db
 import (
 	"testing"
 
-	"github.com/dutonians/ai-template/internal/config"
+	"github.com/octokas/go-ai/internal/config"
 	"github.com/stretchr/testify/assert"
 )
 

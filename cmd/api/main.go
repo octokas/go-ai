@@ -4,20 +4,23 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/yourusername/projectname/internal/server"
-	"github.com/yourusername/projectname/internal/config"
-	"github.com/yourusername/projectname/internal/logger"
+	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/internal/logger"
+	"github.com/octokas/go-ai/internal/server"
 )
 
 func main() {
+	// Initial logging with standard log package
+	log.Println("Initializing application...")
+
 	// Initialize logger
-	log := logger.New()
-	log.Info("Starting API server...")
+	logger := logger.New()
+	logger.Info("Starting API server...")
 
 	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
-		log.Fatal("Failed to load configuration:", err)
+		logger.Fatal("Failed to load configuration:", err)
 	}
 
 	// Initialize server
@@ -25,6 +28,6 @@ func main() {
 
 	// Start server
 	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
-		log.Fatal("Server failed:", err)
+		logger.Fatal("Server failed:", err)
 	}
-} 
+}

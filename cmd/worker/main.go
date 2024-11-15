@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/yourusername/projectname/internal/config"
-	"github.com/yourusername/projectname/internal/logger"
+	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/internal/logger"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package ai
 
 import (
-	"github.com/yourusername/projectname/internal/config"
-	"github.com/yourusername/projectname/internal/logger"
+	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/internal/logger"
 )
 
 type Model struct {

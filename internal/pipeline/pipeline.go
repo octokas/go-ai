@@ -3,8 +3,8 @@ package pipeline
 import (
 	"context"
 
-	"github.com/yourusername/projectname/internal/ai"
-	"github.com/yourusername/projectname/internal/logger"
+	"github.com/octokas/go-ai/internal/ai"
+	"github.com/octokas/go-ai/internal/logger"
 )
 
 type Pipeline struct {
