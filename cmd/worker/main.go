@@ -1,11 +1,27 @@
 package main
 
 import (
-	"log"
-
 	"github.com/octokas/go-ai/internal/config"
 	"github.com/octokas/go-ai/internal/logger"
 )
+
+type Worker struct {
+	config *config.Config
+	logger *logger.Logger
+}
+
+func NewWorker(cfg *config.Config, log *logger.Logger) *Worker {
+	return &Worker{
+		config: cfg,
+		logger: log,
+	}
+}
+
+func (w *Worker) Run() error {
+	w.logger.Info("Worker pipeline started")
+	// TODO: Add actual work processing here
+	return nil
+}
 
 func main() {
 	// Initialize logger
@@ -18,5 +34,9 @@ func main() {
 		log.Fatal("Failed to load configuration:", err)
 	}
 
-	// TODO: Initialize worker pipeline
-} 
+	// Initialize and run worker
+	worker := NewWorker(cfg, log)
+	if err := worker.Run(); err != nil {
+		log.Fatal("Worker pipeline failed:", err)
+	}
+}
