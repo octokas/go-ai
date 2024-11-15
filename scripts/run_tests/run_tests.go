@@ -1,4 +1,4 @@
-package tests
+package run_tests
 
 import (
 	"log"
