@@ -1,4 +1,4 @@
-package yaml_comments
+package fix_yaml_comments
 
 import (
 	"bufio"
@@ -38,7 +38,7 @@ func fixYAMLComments(filename string) (bool, error) {
 	}
 
 	// Regex to match single # comments but not ## or # within text
-	re := regexp.MustCompile(`(?m)^([^#]*[^#])#(?!#)\s`)
+	re := regexp.MustCompile(`^([^#]*[^#])#[^#]\s`)
 	modified := re.ReplaceAll(content, []byte("${1}## "))
 
 	if !bytes.Equal(content, modified) {

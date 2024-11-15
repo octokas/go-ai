@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/octokas/go-ai/scripts/changelog"
-	"github.com/octokas/go-ai/scripts/yaml_comments"
+	changelog "github.com/octokas/go-ai/scripts"
+	fix_yaml_comments "github.com/octokas/go-ai/scripts/fix_yaml_comments"
 )
 
 func main() {
 	changelog.GenerateChangelog()
-	yaml_comments.FixYAMLComments(".")
+	fix_yaml_comments.FixYAMLComments(".")
 }
