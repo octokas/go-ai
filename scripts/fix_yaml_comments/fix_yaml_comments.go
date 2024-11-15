@@ -37,12 +37,12 @@ func fixYAMLComments(filename string) (bool, error) {
 		return false, nil
 	}
 
-	// Regex to match single # comments but not ## or # within text
-	re := regexp.MustCompile(`^([^#]*[^#])#[^#]\s`)
-	modified := re.ReplaceAll(content, []byte("${1}## "))
+	// Fix: Simpler regex that matches single # at start of line
+	re := regexp.MustCompile(`(?m)^#([^#])`)
+	modified := re.ReplaceAllString(string(content), "##$1")
 
-	if !bytes.Equal(content, modified) {
-		err = os.WriteFile(filename, modified, 0644)
+	if string(content) != modified {
+		err = os.WriteFile(filename, []byte(modified), 0644)
 		if err != nil {
 			return false, err
 		}
