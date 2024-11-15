@@ -1,4 +1,4 @@
-package main
+package changelog
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 func main() {
 	// Get the latest tag
 	lastTag, _ := exec.Command("git", "describe", "--tags", "--abbrev=0").Output()
-	
+
 	// Get all commits since last tag
 	cmd := exec.Command("git", "log", "--pretty=format:%s", string(lastTag))
 	output, err := cmd.Output()
@@ -21,10 +21,10 @@ func main() {
 
 	// Parse commits
 	commits := strings.Split(string(output), "\n")
-	
+
 	// Generate changelog
 	changelog := fmt.Sprintf("# Changelog\n\n## [Unreleased] - %s\n\n", time.Now().Format("2006-01-02"))
-	
+
 	features := []string{}
 	fixes := []string{}
 	others := []string{}
@@ -63,4 +63,4 @@ func main() {
 	}
 
 	fmt.Println(changelog)
-} 
+}

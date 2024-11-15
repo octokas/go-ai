@@ -1,4 +1,4 @@
-package main
+package yaml_comments
 
 import (
 	"bufio"
