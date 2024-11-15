@@ -1,0 +1,39 @@
+name: GitGuardian Security Scan
+
+on:
+  push:
+    branches: [ trunk ]
+  pull_request:
+    branches: [ trunk ]
+  workflow_dispatch:
+
+jobs:
+  scanning:
+    name: GitGuardian Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # fetch all history for all branches and tags
+          
+      - name: GitGuardian scan
+        uses: GitGuardian/ggshield-action@master
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.pull_request && github.event.pull_request.base.sha || github.event.before }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API }}
+
+      - name: Notify on Failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 GitGuardian Security Scan Failed',
+              body: 'Potential secrets or security issues detected. Please check the Actions tab for details.'
+            }) 
