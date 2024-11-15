@@ -81,6 +81,17 @@ make run-hello     ## Run the Hello Dutonian example
 make changelog     ## Generate changelog
 ```
 
+### Aggressive Code Cleanup
+
+```bash
+## More aggressive cache clearing
+go clean -cache -modcache -i -r
+
+## And/or delete the replace directive and run tidy again
+go mod edit -dropreplace github.com/octokas/go-ai
+go mod tidy       ## Clean the project
+```
+
 ## 📝 Changelog
 
 Changes are automatically tracked and documented in `CHANGELOG.md`. To generate the changelog:
