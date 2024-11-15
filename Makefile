@@ -1,4 +1,6 @@
-.PHONY: all build test clean run help
+.PHONY: all build test clean run help dev init-repo init tidy
+dev:
+	air
 
 # Variables
 BINARY_NAME=myapp
@@ -23,6 +25,15 @@ test:
 # Clean build directory
 clean:
 	rm -rf $(BUILD_DIR)
+	go clean -modcache
+
+# Tidy up the project
+tidy:
+	go mod tidy
+
+# Run with hot reload
+dev:
+	air
 
 # Run the API
 run-api:

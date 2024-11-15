@@ -49,7 +49,10 @@ func main() {
 |-- pkg/ # Reusable packages
 |-- scripts/ # Build, maintenance, and utility scripts
 |  |-- changelog.go # Changelog generator
-|-- deploy/ # Deployment scripts
+|-- deploy/ # Deployment configuration
+|  |-- Dockerfile
+|  |-- docker-compose.yml
+|  |-- .env.example
 |-- docs/ # Documentation
 |-- examples/ # Example code
 |-- tests/ # Test suite

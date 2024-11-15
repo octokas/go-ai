@@ -14,6 +14,8 @@ go-ai/
 │       └── main.go
 ├── deploy/
 │   └── Dockerfile
+│   └── docker-compose.yml
+│   └── .env.example
 ├── internal/
 │   └── ai/
 │       └── model.go
@@ -213,6 +215,54 @@ go run cmd/api/main.go
 ## Run the worker, API, and tests in watch mode with verbose output
 ./worker & go run cmd/api/main.go && go test -v -watch ./...
 ```
+
+### Using Make Commands
+
+This project includes several make commands for common tasks:
+
+```bash
+make run      ## Run the worker
+make dev      ## Run with hot reload
+make test     ## Run the tests
+make tidy
+make clean
+```
+
+For hot reload functionality during development, install Air:
+
+```bash
+go install github.com/cosmtrek/air@latest
+```
+
+You could also create a configuration file for Air (which provides hot reload functionality) at `.air.toml`:
+
+```toml
+## .air.toml
+toml:.air.toml
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/main cmd/worker/main.go"
+  bin = "./tmp/main"
+  delay = 1000
+  exclude_dir = ["assets", "tmp", "vendor"]
+  include_ext = ["go", "yaml", "env"]
+  exclude_regex = ["_test.go"]
+```
+
+This gives you a Node.js-like development experience with:
+1. Simple command aliases
+2. Hot reload during development
+3. Consistent build and run commands
+4. Easy to remember command structure
+
+The main differences from Node.js are:
+- Uses `make` instead of `npm` or `yarn`
+- Commands are defined in `Makefile` instead of `package.json`
+- Hot reload requires a separate tool (like Air) instead of being built-in
+- Build process is more explicit due to Go being a compiled language
+
 
 ## Contributing
 

@@ -9,10 +9,17 @@ import (
 )
 
 type Metrics struct {
-	counters map[string]int64
-	timers   map[string]time.Duration
-	logger   *logger.Logger
-	mu       sync.RWMutex
+	TotalRequests int64
+	counters      map[string]int64
+	timers        map[string]time.Duration
+	logger        *logger.Logger
+	mu            sync.RWMutex
+}
+
+type MetricsCollector struct {
+	TotalRequests int
+	metrics       Metrics
+	// Add other metrics fields as needed
 }
 
 var (
@@ -23,12 +30,19 @@ var (
 func New() *Metrics {
 	once.Do(func() {
 		instance = &Metrics{
-			counters: make(map[string]int64),
-			timers:   make(map[string]time.Duration),
-			logger:   logger.New(),
+			TotalRequests: 0,
+			counters:      make(map[string]int64),
+			timers:        make(map[string]time.Duration),
+			logger:        logger.New(),
 		}
 	})
 	return instance
+}
+
+func NewMetricsCollector() *MetricsCollector {
+	return &MetricsCollector{
+		metrics: *New(),
+	}
 }
 
 func (m *Metrics) IncrementCounter(name string) {
@@ -66,4 +80,14 @@ func (m *Metrics) HTTPMiddleware(next http.Handler) http.Handler {
 		duration := time.Since(start)
 		m.RecordTime("http_request_duration", duration)
 	})
+}
+
+// Add this method to your MetricsCollector struct
+func (mc *MetricsCollector) RecordRequest(path, method string, statusCode int, duration time.Duration) {
+	mc.TotalRequests++
+	// Add any other metric recording logic here
+}
+
+func (c *MetricsCollector) GetMetrics() Metrics {
+	return c.metrics
 }

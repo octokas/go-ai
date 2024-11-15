@@ -2,6 +2,7 @@ package logger
 
 import (
 	"log"
+	"net/http"
 	"os"
 	"sync"
 )
@@ -83,4 +84,11 @@ func (l *Logger) Fatal(v ...interface{}) {
 		l.logger.SetPrefix("[FATAL] ")
 		l.logger.Fatal(v...)
 	}
+}
+
+func LoggerMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s %s", r.Method, r.URL.Path)
+		next.ServeHTTP(w, r)
+	})
 } 
