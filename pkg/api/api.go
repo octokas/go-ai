@@ -9,7 +9,7 @@ import (
 	"github.com/octokas/go-ai/internal/server"
 )
 
-func ConnectAPI() {
+func RunAPI() {
 	// Initial logging with standard log package
 	log.Println("Initializing application...")
 

@@ -23,7 +23,7 @@ func (w *Worker) Run() error {
 	return nil
 }
 
-func SetupWorker() {
+func RunWorker() {
 	// Initialize logger
 	log := logger.New()
 	log.Info("Starting worker...")

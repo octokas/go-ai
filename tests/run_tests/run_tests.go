@@ -3,7 +3,7 @@ package run_tests
 import (
 	"log"
 
-	test_reporter "github.com/octokas/go-ai/scripts/test_reporter"
+	test_reporter "github.com/octokas/go-ai/tests/test_reporter"
 )
 
 // var testReporter test_reporter.TestReporter = &test_reporter.Reporter{}
