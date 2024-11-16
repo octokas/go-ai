@@ -1,9 +1,22 @@
 package router
 
 // Setup initializes all routes
-func Setup() {
+func SetupAll() {
 	// Register all route groups
-	setupHomeRoutes()
+	HomeServer()
 	setupV1Routes()
 	setupV2Routes()
+}
+
+// For individual server starts
+func SetupHome() {
+	HomeServer()
+}
+
+func SetupV1() {
+	V1Server()
+}
+
+func SetupV2() {
+	V2Server()
 }
