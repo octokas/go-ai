@@ -6,6 +6,7 @@ import (
 
 	"github.com/octokas/go-ai/pkg/config"
 	"github.com/octokas/go-ai/pkg/logger"
+	"github.com/octokas/go-ai/pkg/router"
 	"github.com/octokas/go-ai/pkg/server"
 )
 
@@ -16,6 +17,13 @@ func RunAPI() {
 	// Initialize logger
 	logger := logger.New()
 	logger.Info("Starting API server...")
+
+	// Setup routes
+	router.Setup()
+
+	// Start server
+	log.Printf("[INFO] Starting server on :8080")
+	http.ListenAndServe(":8080", nil)
 
 	// Load configuration
 	cfg, err := config.Load()
