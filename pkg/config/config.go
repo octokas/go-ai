@@ -39,7 +39,11 @@ type DatabaseConfig struct {
 }
 
 type Configer interface {
-	// Add your config methods here
+	Load() (*Config, error)
+	LoadFromReader(reader io.Reader) (*Config, error)
+	LoadFromString(configStr string) error
+	GetGitHubToken() string
+	Reset()
 }
 
 var (

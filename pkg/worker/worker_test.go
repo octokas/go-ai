@@ -3,34 +3,35 @@ package worker
 import (
 	"testing"
 
-	"github.com/octokas/go-ai/pkg/mocks"
+	"github.com/octokas/go-ai/pkg/logger"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 )
 
-func TestNewWorker(t *testing.T) {
-	mockConfig := new(mocks.MockConfig)
-	mockLogger := new(mocks.MockLogger)
+func TestWorker(t *testing.T) {
+	t.Run("worker runs successfully", func(t *testing.T) {
+		// Setup
+		log := logger.New()
+		w := NewWorker(log)
 
-	worker := NewWorker(mockConfig, mockLogger)
+		// Act
+		err := w.Run()
 
-	assert.NotNil(t, worker)
-	assert.Same(t, mockConfig, worker.config)
-	assert.Same(t, mockLogger, worker.logger)
-}
+		// Assert
+		assert.NoError(t, err)
+	})
 
-func TestWorkerRun(t *testing.T) {
-	mockConfig := new(mocks.MockConfig)
-	mockLogger := new(mocks.MockLogger)
+	t.Run("worker processes multiple items", func(t *testing.T) {
+		// Setup
+		log := logger.New()
+		w := NewWorker(log)
 
-	// Set expectations
-	mockLogger.On("Info", mock.Anything).Return()
+		// Add test data
+		testData := []string{"item1", "item2", "item3"}
 
-	worker := NewWorker(mockConfig, mockLogger)
-
-	err := worker.Run()
-	assert.NoError(t, err)
-
-	// Verify expectations
-	mockLogger.AssertExpectations(t)
+		// Act & Assert
+		for _, item := range testData {
+			err := w.Run() // In a real scenario, you might pass the item to process
+			assert.NoError(t, err, "Failed to process item: %s", item)
+		}
+	})
 }

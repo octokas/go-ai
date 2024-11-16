@@ -6,13 +6,11 @@ import (
 )
 
 type Worker struct {
-	config config.Configer
 	logger logger.LoggerInterface
 }
 
-func NewWorker(config config.Configer, logger logger.LoggerInterface) *Worker {
+func NewWorker(logger logger.LoggerInterface) *Worker {
 	return &Worker{
-		config: config,
 		logger: logger,
 	}
 }
@@ -28,14 +26,13 @@ func RunWorker() {
 	log := logger.New()
 	log.Info("Starting worker...")
 
-	// Load configuration
-	cfg, err := config.Load()
-	if err != nil {
+	// Check if configuration loads successfully
+	if _, err := config.Load(); err != nil {
 		log.Fatal("Failed to load configuration:", err)
 	}
 
 	// Initialize and run worker
-	worker := NewWorker(cfg, log)
+	worker := NewWorker(log)
 	if err := worker.Run(); err != nil {
 		log.Fatal("Worker pipeline failed:", err)
 	}
