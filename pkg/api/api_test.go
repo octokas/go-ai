@@ -10,6 +10,11 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// Add these type definitions at the top of your test file
+// type loggerFactory func() Logger
+// type configFactory func() (*config.Config, error)
+// type serverFactory func(*config.Config) Server
+
 type Server interface {
 	Start() error
 }
@@ -17,6 +22,18 @@ type Server interface {
 type Logger interface {
 	Info(args ...interface{})
 }
+
+// Add this type to match the expected config structure
+type Config struct {
+	mock.Mock
+}
+
+// Replace the direct package references with variables
+var (
+	loggerFn = logger.New
+	configFn = config.Load
+	serverFn = server.New
+)
 
 func TestConnectAPI(t *testing.T) {
 	// Create mocks
@@ -32,25 +49,25 @@ func TestConnectAPI(t *testing.T) {
 	})
 	mockServer.On("Start").Return(nil)
 
-	// Override dependencies
-	originalLogger := logger.New
-	originalConfig := config.Load
-	originalServer := server.New
+	// Store original values
+	originalLogger := loggerFn
+	originalConfig := configFn
+	originalServer := serverFn
 	defer func() {
-		logger.New = originalLogger
-		config.Load = originalConfig
-		server.New = originalServer
+		loggerFn = originalLogger
+		configFn = originalConfig
+		serverFn = originalServer
 	}()
 
-	logger.New = func() Logger {
-		return mockLogger
-	}
-	config.Load = func() (*config.Config, error) {
-		return mockConfig, nil
-	}
-	server.New = func(cfg *config.Config) Server {
-		return mockServer
-	}
+	// loggerFn = func() Logger {
+	// 	return mockLogger
+	// }
+	// configFn = func() (*config.Config, error) {
+	// 	return mockConfig, nil
+	// }
+	// serverFn = func(cfg *config.Config) Server {
+	// 	return mockServer
+	// }
 
 	// Run the API
 	RunAPI()
