@@ -38,12 +38,12 @@ var (
 func TestConnectAPI(t *testing.T) {
 	// Create mocks
 	mockLogger := new(mocks.MockLogger)
-	mockConfig := new(mocks.MockConfig)
+	ConfigMock := new(mocks.ConfigMock)
 	mockServer := new(mocks.MockServer)
 
 	// Set expectations
 	mockLogger.On("Info", mock.Anything).Return()
-	mockConfig.On("GetServerConfig").Return(map[string]interface{}{
+	ConfigMock.On("GetServerConfig").Return(map[string]interface{}{
 		"port": 8080,
 		"host": "localhost",
 	})
@@ -63,7 +63,7 @@ func TestConnectAPI(t *testing.T) {
 	// 	return mockLogger
 	// }
 	// configFn = func() (*config.Config, error) {
-	// 	return mockConfig, nil
+	// 	return ConfigMock, nil
 	// }
 	// serverFn = func(cfg *config.Config) Server {
 	// 	return mockServer
@@ -74,6 +74,6 @@ func TestConnectAPI(t *testing.T) {
 
 	// Verify expectations
 	mockLogger.AssertExpectations(t)
-	mockConfig.AssertExpectations(t)
+	ConfigMock.AssertExpectations(t)
 	mockServer.AssertExpectations(t)
 }
