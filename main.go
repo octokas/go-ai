@@ -9,10 +9,9 @@ import (
 )
 
 func main() {
+	api.RunAPI()
+	worker.RunWorker()
 	changelog.GenerateChangelog()
 	fix_yaml_comments.FixYAMLComments(".")
 	run_tests.RunTests()
-
-	api.RunAPI()
-	worker.RunWorker()
 }
