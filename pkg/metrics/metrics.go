@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/octokas/go-ai/internal/logger"
+	"github.com/octokas/go-ai/pkg/logger"
 )
 
 type Metrics struct {

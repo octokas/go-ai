@@ -3,7 +3,7 @@ package worker
 import (
 	"testing"
 
-	"github.com/octokas/go-ai/internal/mocks"
+	"github.com/octokas/go-ai/pkg/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

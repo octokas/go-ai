@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/octokas/go-ai/internal/ai"
-	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/pkg/ai"
+	"github.com/octokas/go-ai/pkg/config"
 	"github.com/stretchr/testify/assert"
 )
 

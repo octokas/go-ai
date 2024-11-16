@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/octokas/go-ai/internal/config"
-	"github.com/octokas/go-ai/internal/logger"
-	"github.com/octokas/go-ai/internal/server"
+	"github.com/octokas/go-ai/pkg/config"
+	"github.com/octokas/go-ai/pkg/logger"
+	"github.com/octokas/go-ai/pkg/server"
 )
 
 func RunAPI() {

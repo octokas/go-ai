@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/octokas/go-ai/internal/config"
-	"github.com/octokas/go-ai/internal/logger"
+	"github.com/octokas/go-ai/pkg/config"
+	"github.com/octokas/go-ai/pkg/logger"
 )
 
 type Database struct {

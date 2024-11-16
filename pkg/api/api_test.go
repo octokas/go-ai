@@ -3,10 +3,10 @@ package api
 import (
 	"testing"
 
-	"github.com/octokas/go-ai/internal/config"
-	"github.com/octokas/go-ai/internal/logger"
-	"github.com/octokas/go-ai/internal/mocks"
-	"github.com/octokas/go-ai/internal/server"
+	"github.com/octokas/go-ai/pkg/config"
+	"github.com/octokas/go-ai/pkg/logger"
+	"github.com/octokas/go-ai/pkg/mocks"
+	"github.com/octokas/go-ai/pkg/server"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -53,7 +53,7 @@ func TestConnectAPI(t *testing.T) {
 	}
 
 	// Run the API
-	ConnectAPI()
+	RunAPI()
 
 	// Verify expectations
 	mockLogger.AssertExpectations(t)
