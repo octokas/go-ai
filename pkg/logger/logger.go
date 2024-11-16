@@ -15,7 +15,17 @@ const (
 	WARN
 	ERROR
 	FATAL
+	SETLEVEL
 )
+
+type LoggerInterface interface {
+	Debug(v ...interface{})
+	Info(v ...interface{})
+	Warn(v ...interface{})
+	Error(v ...interface{})
+	Fatal(v ...interface{})
+	SetLevel(v ...interface{})
+}
 
 type Logger struct {
 	logger *log.Logger
@@ -36,10 +46,12 @@ var New = func() *Logger {
 	return defaultLogger
 }
 
-func (l *Logger) SetLevel(level Level) {
-	l.mu.Lock()
-	defer l.mu.Unlock()
-	l.level = level
+func (l *Logger) SetLevel(level ...interface{}) {
+	if len(level) > 0 {
+		if lvl, ok := level[0].(Level); ok {
+			l.level = lvl
+		}
+	}
 }
 
 func (l *Logger) Debug(v ...interface{}) {

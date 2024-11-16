@@ -6,14 +6,14 @@ import (
 )
 
 type Worker struct {
-	config *config.Config
-	logger *logger.Logger
+	config config.Configer
+	logger logger.LoggerInterface
 }
 
-func NewWorker(cfg *config.Config, log *logger.Logger) *Worker {
+func NewWorker(config config.Configer, logger logger.LoggerInterface) *Worker {
 	return &Worker{
-		config: cfg,
-		logger: log,
+		config: config,
+		logger: logger,
 	}
 }
 

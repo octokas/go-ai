@@ -38,6 +38,10 @@ type DatabaseConfig struct {
 	DBName   string
 }
 
+type Configer interface {
+	// Add your config methods here
+}
+
 var (
 	config *Config
 	once   sync.Once
