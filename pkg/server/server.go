@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/octokas/go-ai/internal/config"
-	"github.com/octokas/go-ai/internal/logger"
+	"github.com/octokas/go-ai/pkg/config"
+	"github.com/octokas/go-ai/pkg/logger"
 )
 
 type Server struct {

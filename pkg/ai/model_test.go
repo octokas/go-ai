@@ -3,7 +3,7 @@ package ai
 import (
 	"testing"
 
-	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/pkg/config"
 	"github.com/stretchr/testify/assert"
 )
 
