@@ -3,10 +3,20 @@ package api
 import (
 	"testing"
 
+	"github.com/octokas/go-ai/internal/config"
+	"github.com/octokas/go-ai/internal/logger"
 	"github.com/octokas/go-ai/internal/mocks"
-	"github.com/stretchr/testify/assert"
+	"github.com/octokas/go-ai/internal/server"
 	"github.com/stretchr/testify/mock"
 )
+
+type Server interface {
+	Start() error
+}
+
+type Logger interface {
+	Info(args ...interface{})
+}
 
 func TestConnectAPI(t *testing.T) {
 	// Create mocks
