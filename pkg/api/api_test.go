@@ -70,7 +70,7 @@ func TestConnectAPI(t *testing.T) {
 	// }
 
 	// Run the API
-	RunAPI()
+	RunAPIv1()
 
 	// Verify expectations
 	mockLogger.AssertExpectations(t)
