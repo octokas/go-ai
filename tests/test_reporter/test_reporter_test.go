@@ -31,7 +31,7 @@ func (m *MockCommandExecutor) Run() error {
 	return ret.Error(0)
 }
 
-func TestReporter(t *testing.T) {
+func RunTestReporter(t *testing.T) {
 	mockExec := new(MockCommandExecutor)
 
 	// Set up mock expectations

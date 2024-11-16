@@ -13,6 +13,10 @@ var (
 	fs          = &realFileSystem{}
 )
 
+type TestReporter interface {
+	SaveTestReports() error
+}
+
 type FileSystem interface {
 	MkdirAll(path string, perm os.FileMode) error
 	WriteFile(filename string, data []byte, perm os.FileMode) error
