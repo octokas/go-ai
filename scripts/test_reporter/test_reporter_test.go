@@ -21,18 +21,30 @@ func (m *MockCommandExecutor) Command(name string, args ...string) *exec.Cmd {
 	return ret.Get(0).(*exec.Cmd)
 }
 
+func (m *MockCommandExecutor) CombinedOutput() ([]byte, error) {
+	ret := m.Called()
+	return ret.Get(0).([]byte), ret.Error(1)
+}
+
+func (m *MockCommandExecutor) Run() error {
+	ret := m.Called()
+	return ret.Error(0)
+}
+
 func TestReporter(t *testing.T) {
-	// Create a new mock command executor
 	mockExec := new(MockCommandExecutor)
 
-	// Set up the mock expectation
-	mockExec.On("Command", "go", "test", "-coverprofile", mock.Anything, "./...").Return(exec.Command(""), nil)
+	// Set up mock expectations
+	mockExec.On("Command", "go", "test", "-coverprofile", mock.Anything, "./...").Return(exec.Command(""))
+	mockExec.On("CombinedOutput").Return([]byte("test output"), nil)
+	mockExec.On("Run").Return(nil)
 
-	// Create a new reporter instance
-	reporter := NewReporter(mockExec)
+	reporter := &Reporter{
+		commandExecutor: mockExec,
+	}
 
 	// Call the function you want to test
-	err := reporter.RunTests()
+	err := reporter.SaveTestReports()
 
 	// Assert the expected behavior
 	if err != nil {

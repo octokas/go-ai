@@ -28,11 +28,18 @@ func (fs *realFileSystem) WriteFile(filename string, data []byte, perm os.FileMo
 	return os.WriteFile(filename, data, perm)
 }
 
-type TestReporter interface {
-	SaveTestReports() error
+// type TestReporter interface {
+// 	SaveTestReports() error
+// }
+
+type CommandExecutor interface {
+	CombinedOutput() ([]byte, error)
+	Run() error
 }
 
-type Reporter struct{}
+type Reporter struct {
+	commandExecutor CommandExecutor
+}
 
 func (r *Reporter) SaveTestReports() error {
 	// Create reports directory if it doesn't exist
@@ -46,7 +53,7 @@ func (r *Reporter) SaveTestReports() error {
 
 	// Run tests with coverage
 	coverageFile := filepath.Join(reportsDir, fmt.Sprintf("coverage_%s.out", timestamp))
-	coverageCmd := execCommand("go", "test", "-coverprofile", coverageFile, "./...")
+	coverageCmd := r.commandExecutor
 	coverageOutput, err := coverageCmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to run tests with coverage: %w", err)
@@ -60,7 +67,7 @@ func (r *Reporter) SaveTestReports() error {
 
 	// Generate HTML coverage report
 	htmlFile := filepath.Join(reportsDir, fmt.Sprintf("coverage_%s.html", timestamp))
-	htmlCmd := execCommand("go", "tool", "cover", "-html", coverageFile, "-o", htmlFile)
+	htmlCmd := r.commandExecutor
 	if err := htmlCmd.Run(); err != nil {
 		return fmt.Errorf("failed to generate HTML coverage report: %w", err)
 	}
@@ -73,3 +80,13 @@ func (r *Reporter) SaveTestReports() error {
 
 	return nil
 }
+
+// NewReporter creates a new Reporter instance with the specified test command
+func NewReporter(testCommand string, args ...string) *Reporter {
+	return &Reporter{
+		commandExecutor: execCommand(testCommand, args...),
+	}
+}
+
+// Example usage would be:
+// reporter := NewReporter("go", "test", "-coverprofile=coverage.out", "./...")

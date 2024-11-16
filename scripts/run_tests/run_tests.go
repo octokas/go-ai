@@ -6,7 +6,7 @@ import (
 	test_reporter "github.com/octokas/go-ai/scripts/test_reporter"
 )
 
-var testReporter test_reporter.TestReporter = &test_reporter.DefaultTestReporter{}
+var testReporter test_reporter.TestReporter = &test_reporter.Reporter{}
 
 func RunTests() error {
 	if err := testReporter.SaveTestReports(); err != nil {

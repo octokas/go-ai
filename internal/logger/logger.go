@@ -26,7 +26,7 @@ type Logger struct {
 var defaultLogger *Logger
 var once sync.Once
 
-func New() *Logger {
+var New = func() *Logger {
 	once.Do(func() {
 		defaultLogger = &Logger{
 			logger: log.New(os.Stdout, "", log.LstdFlags),
@@ -91,4 +91,4 @@ func LoggerMiddleware(next http.Handler) http.Handler {
 		log.Printf("%s %s", r.Method, r.URL.Path)
 		next.ServeHTTP(w, r)
 	})
-} 
+}
