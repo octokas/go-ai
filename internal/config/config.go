@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -104,4 +105,10 @@ func loadFromEnv(cfg *Config) error {
 
 func GetGitHubToken() string {
 	return os.Getenv("GITHUB_TOKEN")
+}
+
+// Add this function to support testing
+func LoadFromString(configStr string) error {
+	_, err := LoadFromReader(strings.NewReader(configStr))
+	return err
 }

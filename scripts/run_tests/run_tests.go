@@ -6,8 +6,11 @@ import (
 	test_reporter "github.com/octokas/go-ai/scripts/test_reporter"
 )
 
-func RunTests() {
-	if err := test_reporter.SaveTestReports(); err != nil {
+var testReporter test_reporter.TestReporter = &test_reporter.DefaultTestReporter{}
+
+func RunTests() error {
+	if err := testReporter.SaveTestReports(); err != nil {
 		log.Fatalf("Failed to save test reports: %v", err)
 	}
+	return testReporter.SaveTestReports()
 }

@@ -8,10 +8,36 @@ import (
 	"time"
 )
 
-func SaveTestReports() error {
+var (
+	execCommand = exec.Command
+	fs          = &realFileSystem{}
+)
+
+type FileSystem interface {
+	MkdirAll(path string, perm os.FileMode) error
+	WriteFile(filename string, data []byte, perm os.FileMode) error
+}
+
+type realFileSystem struct{}
+
+func (fs *realFileSystem) MkdirAll(path string, perm os.FileMode) error {
+	return os.MkdirAll(path, perm)
+}
+
+func (fs *realFileSystem) WriteFile(filename string, data []byte, perm os.FileMode) error {
+	return os.WriteFile(filename, data, perm)
+}
+
+type TestReporter interface {
+	SaveTestReports() error
+}
+
+type Reporter struct{}
+
+func (r *Reporter) SaveTestReports() error {
 	// Create reports directory if it doesn't exist
 	reportsDir := "reports"
-	if err := os.MkdirAll(reportsDir, 0755); err != nil {
+	if err := fs.MkdirAll(reportsDir, 0755); err != nil {
 		return fmt.Errorf("failed to create reports directory: %w", err)
 	}
 
@@ -20,7 +46,7 @@ func SaveTestReports() error {
 
 	// Run tests with coverage
 	coverageFile := filepath.Join(reportsDir, fmt.Sprintf("coverage_%s.out", timestamp))
-	coverageCmd := exec.Command("go", "test", "-coverprofile", coverageFile, "./...")
+	coverageCmd := execCommand("go", "test", "-coverprofile", coverageFile, "./...")
 	coverageOutput, err := coverageCmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to run tests with coverage: %w", err)
@@ -28,13 +54,13 @@ func SaveTestReports() error {
 
 	// Save test output
 	testOutputFile := filepath.Join(reportsDir, fmt.Sprintf("test_output_%s.txt", timestamp))
-	if err := os.WriteFile(testOutputFile, coverageOutput, 0644); err != nil {
+	if err := fs.WriteFile(testOutputFile, coverageOutput, 0644); err != nil {
 		return fmt.Errorf("failed to save test output: %w", err)
 	}
 
 	// Generate HTML coverage report
 	htmlFile := filepath.Join(reportsDir, fmt.Sprintf("coverage_%s.html", timestamp))
-	htmlCmd := exec.Command("go", "tool", "cover", "-html", coverageFile, "-o", htmlFile)
+	htmlCmd := execCommand("go", "tool", "cover", "-html", coverageFile, "-o", htmlFile)
 	if err := htmlCmd.Run(); err != nil {
 		return fmt.Errorf("failed to generate HTML coverage report: %w", err)
 	}

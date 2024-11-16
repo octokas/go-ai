@@ -1,4 +1,4 @@
-package main
+package worker
 
 import (
 	"github.com/octokas/go-ai/internal/config"
@@ -23,7 +23,7 @@ func (w *Worker) Run() error {
 	return nil
 }
 
-func main() {
+func SetupWorker() {
 	// Initialize logger
 	log := logger.New()
 	log.Info("Starting worker...")
