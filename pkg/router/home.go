@@ -17,7 +17,7 @@ func setupHomeRoutes() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the Home Page! 🏠")
+	fmt.Fprintf(w, "Welcome new Dutonian! 📟🎉")
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
