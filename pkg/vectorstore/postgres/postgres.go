@@ -1,4 +1,4 @@
-// package vectorstore
+package postgres
 
 // import (
 // 	"database/sql"
