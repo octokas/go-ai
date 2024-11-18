@@ -32,10 +32,6 @@ func RunChatServer(service *chat.Service) error {
 	// Setup chat routes
 	setupChatRoutes()
 
-	// Start server
-	log.Printf("[INFO] Chat server starting on port :4040")
-	http.ListenAndServe(":4040", nil)
-
 	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
@@ -46,6 +42,8 @@ func RunChatServer(service *chat.Service) error {
 	srv := server.New(cfg)
 
 	// Start server
+	log.Printf("[INFO] Chat server starting on port :4040")
+	http.ListenAndServe(":4040", nil)
 	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
 		logger.Fatal("Server failed:", err)
 	}
