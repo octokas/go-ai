@@ -15,7 +15,6 @@ check_deps() {
 check_deps
 
 # Monokai Pro colors
-# Using ANSI color codes that approximate Monokai Pro:
 # Purple: \033[38;5;141m
 # Orange: \033[38;5;209m
 # Green:  \033[38;5;108m
@@ -51,9 +50,8 @@ get_language() {
     esac
 }
 
-# Create debug directory
-root_dir=$(pwd)
-debug_dir="${root_dir}/debug"
+# Create debug directory in the project root
+debug_dir="debug"
 mkdir -p "$debug_dir"
 
 # Fancy banner with Monokai Pro colors
@@ -66,17 +64,17 @@ echo "
 
 # Count total files for progress bar
 echo "\033[38;5;222m🔍 Counting files...\033[0m"
-total_files=$(find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -type f -o -type d | wc -l)
+total_files=$(find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -not \( -name "vendor" -prune \) -type f -o -type d | wc -l)
 
 echo "\033[38;5;73m📂 Processing $total_files files and directories...\033[0m"
 
 # Generate file data and pipe to jq with progress bar
-find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -type f -o -type d | sort | \
+find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -not \( -name "vendor" -prune \) -type f -o -type d | sort | \
 pv -l -s $total_files -N "\033[38;5;141m🔍 Scanning  \033[0m" | \
 while read -r file; do
     if [[ $file == "." ]]; then continue; fi
     
-    name=$(basename "$file")
+    name=${file##*/}
     path=${file#./}
     
     if [[ -d $file ]]; then
