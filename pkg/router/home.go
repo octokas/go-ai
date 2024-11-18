@@ -5,9 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/kyokomi/emoji/v2"
 	"github.com/octokas/go-ai/pkg/config"
 	"github.com/octokas/go-ai/pkg/logger"
 	"github.com/octokas/go-ai/pkg/server"
+	"github.com/octokas/go-ai/pkg/utils"
 )
 
 func setupHomeRoutes() {
@@ -16,17 +18,42 @@ func setupHomeRoutes() {
 	http.HandleFunc("/contact", contactHandler)
 }
 
+// USING FPRINTF
+// func homeHandler(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Fprintf(w, "Welcome new Dutonian! 📟🎉")
+// }
+
+// JUST USING EMOJI
+// func homeHandler(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html; charset=utf-8") // Important for emoji support
+// 	content := emoji.Sprint(`
+//         <h1>Welcome new Dutonian! :pager: :tada:</h1>
+//         <p>Need help getting started? <a href="/chat/prompt">Chat with our Dutonian Assistant</a> :robot:</p>
+//     `)
+// 	fmt.Fprint(w, content)
+// }
+
+// USING UTILS.WRITEHTML
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome new Dutonian! 📟🎉")
+	utils.WriteHTML(w, `
+        <h1>Welcome new Dutonian! :pager: :tada:</h1>
+        <p>Need help getting started? <a href="http://localhost:4040/chat/prompt">Chat with our Dutonian Assistant</a> :robot:</p>
+    `)
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	content := emoji.Sprint("Contact Us: hello@dutonian.com :email:")
+	fmt.Fprint(w, content)
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "About Us: We're building something awesome! 🚀")
 }
 
-func contactHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Contact Us: hello@dutonian.com 📧")
-}
+// func contactHandler(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Fprintf(w, "Contact Us: hello@dutonian.com 📧")
+// }
 
 func HomeServer() { // Initial logging with standard log package
 	log.Println("Initializing application...")
