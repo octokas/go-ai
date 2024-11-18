@@ -3,6 +3,8 @@ package chat
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/kyokomi/emoji/v2"
 )
 
 type Handler struct {
@@ -27,7 +29,7 @@ func (s *Service) ProcessMessage(message string) (string, error) {
 func NewHandler(service *Service) *Handler {
 	return &Handler{
 		service:  service,
-		greeting: "Hello! I'm Claude, an AI assistant. I'm here to help you. ",
+		greeting: emoji.Sprint("Hello! I'm PagerMate :pager:, your Dutonian AI assistant. I'm here to help you get the most out of your Dutonian onboarding experience! :rocket: "),
 	}
 }
 
