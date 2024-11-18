@@ -35,16 +35,32 @@ func RunChatServer(service *chat.Service) error {
 	setupChatRoutes(r, chatHandler)
 
 	// Load configuration
-	cfg, err := config.Load()
-	if err != nil {
-		logger.Fatal("Failed to load configuration:", err)
-		return err
-	}
+	// cfg, err := config.Load()
+	// if err != nil {
+	// 	logger.Fatal("Failed to load configuration:", err)
+	// 	return err
+	// }
 
-	// Initialize server
-	srv := server.New(cfg)
+	// Initialize server with proper port formatting
+	// srv := server.New(&config.Config{
+	// 	Server: config.ServerConfig{
+	// 		Port:    cfg.Port,
+	// 		Host:    "",
+	// 		Timeout: 30,
+	// 	},
+	// })
 
-	// Start server
-	log.Printf("[INFO] Chat server starting on port :%s", cfg.Port)
+	const chatPort = 4040
+
+	srv := server.New(&config.Config{
+		Server: config.ServerConfig{
+			Port:    chatPort,
+			Host:    "",
+			Timeout: 30,
+		},
+	})
+
+	// Start server with properly formatted port
+	log.Printf("[INFO] Chat server starting on port :%d", chatPort)
 	return srv.Run(r)
 }

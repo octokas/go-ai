@@ -57,5 +57,5 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) Run(handler http.Handler) error {
-	return http.ListenAndServe(fmt.Sprintf(":%d", s.config.Port), handler)
+	return http.ListenAndServe(fmt.Sprintf(":%d", s.config.Server.Port), handler)
 }
