@@ -1,4 +1,4 @@
-# 🤖 Go AI Project Template 
+# 🤖 Kaska's Go AI Project Template 
 
 A modern template repository for building AI/ML applications in Go! 🚀
 
