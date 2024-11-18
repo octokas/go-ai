@@ -6,7 +6,8 @@ import (
 )
 
 type Handler struct {
-	service *Service
+	service  *Service
+	greeting string
 }
 
 type Request struct {
@@ -25,7 +26,8 @@ func (s *Service) ProcessMessage(message string) (string, error) {
 
 func NewHandler(service *Service) *Handler {
 	return &Handler{
-		service: service,
+		service:  service,
+		greeting: "Hello! I'm Claude, an AI assistant. I'm here to help you. ",
 	}
 }
 
@@ -58,7 +60,7 @@ func (h *Handler) HandleAPI(w http.ResponseWriter, r *http.Request) {
 
 	// Send response
 	response := Response{
-		Response: resp,
+		Response: h.greeting + resp,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -73,6 +75,37 @@ func (h *Handler) writeError(w http.ResponseWriter, message string, status int) 
 	})
 }
 
-func HandleAPI(w http.ResponseWriter, r *http.Request) {
-	// Add your API handling logic here
-}
+// func HandleAPI(w http.ResponseWriter, r *http.Request) {
+// 	// Add your API handling logic here
+// }
+
+// func HandleAPI(w http.ResponseWriter, r *http.Request) {
+// 	var req Request
+// 	var resp string
+// 	var err error
+
+// 	switch {
+// 	case r.Method != http.MethodPost:
+// 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+// 		return
+
+// 	case json.NewDecoder(r.Body).Decode(&req) != nil:
+// 		http.Error(w, "Invalid request", http.StatusBadRequest)
+// 		return
+
+// 	case func() bool {
+// 		resp, err = service.ProcessMessage(req.Message)
+// 		return err != nil
+// 	}():
+// 		http.Error(w, "Internal server error", http.StatusInternalServerError)
+// 		return
+
+// default:
+// 	response := Response{
+// 		Response: "Hello! I'm Claude, an AI assistant. I'm here to help you. " + resp,
+// 	}
+
+// 		w.Header().Set("Content-Type", "application/json")
+// 		json.NewEncoder(w).Encode(response)
+// 	}
+// }

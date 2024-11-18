@@ -11,9 +11,9 @@ import (
 	"github.com/octokas/go-ai/pkg/server"
 )
 
-func setupChatRoutes() {
+func setupChatRoutes(chatHandler *chat.Handler) {
 	http.HandleFunc("/chat/prompt", chatPromptHandler)
-	http.HandleFunc("/chat/api", chat.HandleAPI)
+	http.HandleFunc("/chat/api", chatHandler.HandleAPI)
 }
 
 func chatPromptHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,8 +29,14 @@ func RunChatServer(service *chat.Service) error {
 	logger := logger.New()
 	logger.Info("Starting Chat server...")
 
+	// Create handler with service
+	chatHandler := chat.NewHandler(service)
+
 	// Setup chat routes
-	setupChatRoutes()
+	setupChatRoutes(chatHandler)
+
+	// Update this line to use the handler's method
+	http.HandleFunc("/chat/api", chatHandler.HandleAPI)
 
 	// Load configuration
 	cfg, err := config.Load()
