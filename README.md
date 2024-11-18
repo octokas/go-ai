@@ -4,7 +4,7 @@ A modern template repository for building AI/ML applications in Go! 🚀
 
 ## ✨ Features
 
-- Clean project structure optimized for AI/ML workloads
+- Clean-ish project structure optimized for AI/ML workloads
 - Common AI dependencies pre-configured
 - Docker support out of the box 🐳
 - Example ML pipeline setup
@@ -27,7 +27,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello, Dutonian! Welcome to your AI project template!")
+	fmt.Println("Hello, friend! Welcome to your AI project template!")
 }
 ```
 
@@ -61,7 +61,8 @@ func main() {
 |-- Dockerfile # Docker configuration
 |-- go.mod # Go module file
 |-- Makefile # Makefile for convenience
-``` 
+```
+_Changed a bit and needs severe cleanup, thanks to presenting stuff, etc_
 
 ## 🛠️ Development
 
@@ -109,7 +110,7 @@ The changelog generator scans commit messages following [Conventional Commits](h
 We take security seriously. If you discover a security vulnerability, please follow these steps:
 
 1. **Do NOT open a public issue**
-2. Send a private email to security@yourdomain.com
+2. Send a private email to security@awestomates.com
 3. Include detailed information about the vulnerability
 4. Allow up to 48 hours for an initial response
 
@@ -129,11 +130,12 @@ We take security seriously. If you discover a security vulnerability, please fol
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details _(if not there, it's not built yet, but my philosophy is simple: don't be an a**hole, keep code free)_.
 
 ## 🙋‍♂️ Getting Help
 
 - Check out the [documentation](docs/README.md)
-- Join our [Discord community](https://discord.gg/yourdiscord)
+- Email me if you need something via [Awestomates](awestomates@gmail.com) if you're an ostomate, or [@octokas](octokas@gmail.com) if you're using this in another way
+- Join our [Slack community](https://discord.gg/awestomates)
 - Open an issue for bug reports or feature requests
 
