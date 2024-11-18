@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/kyokomi/emoji/v2"
 )
 
@@ -74,5 +75,34 @@ func (h *Handler) writeError(w http.ResponseWriter, message string, status int) 
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(Response{
 		Error: message,
+	})
+}
+
+func (h *Handler) HandleGinAPI(c *gin.Context) {
+	var req Request
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, Response{
+			Error: "Invalid request body",
+		})
+		return
+	}
+
+	if req.Message == "" {
+		c.JSON(http.StatusBadRequest, Response{
+			Error: "Message is required",
+		})
+		return
+	}
+
+	resp, err := h.service.ProcessMessage(req.Message)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, Response{
+			Error: err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, Response{
+		Response: h.greeting + resp,
 	})
 }
