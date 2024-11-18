@@ -42,9 +42,13 @@ func main() {
 	}
 	defer embedder.Close()
 
+	// Initialize LLM service
+	llm := chat.NewLLMService()
+
 	service := chat.NewService(
 		store,
 		embedder,
+		llm,
 		chat.ServiceConfig{
 			MaxContextDocs:      5,
 			MaxTokensPerDoc:     1000,
@@ -75,10 +79,10 @@ func main() {
 	// Setup routes based on flags
 	if !*apiV2 && !*home && !*apiV1 && !*chat {
 		log.Println("Starting all servers...")
-		go router.HomeServer() // 8080
-		go router.V1Server()   // 2020
-		go router.V2Server()   // 3030
-		go router.ChatServer() // 4040
+		go router.HomeServer()        // 8080
+		go router.V1Server()          // 2020
+		go router.V2Server()          // 3030
+		go router.ChatServer(service) // Pass service to ChatServer 4040
 	} else if *apiV2 {
 		go router.V2Server()
 	} else if *home {
@@ -86,7 +90,7 @@ func main() {
 	} else if *apiV1 {
 		go router.V1Server()
 	} else if *chat {
-		go router.ChatServer()
+		go router.ChatServer(service)
 	} else {
 		log.Println("No server type specified. Use -all flag to start all servers")
 		return
