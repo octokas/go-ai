@@ -1,7 +1,3 @@
-This is a test document.
-It contains multiple sentences.
-You can use this to verify that the knowledge library is working correctly.
-
 PagerDuty is a service that helps you manage incidents and alerts.
 Be the hero behind the scenes.
 Join our global team of innovators shaping the future of digital operations with AI. At PagerDuty, you'll tackle complex problems impacting millions, grow your career at the cutting edge of technology, and help build a more equitable world—all in a flexible, inclusive environment. Are you Dutonian?
