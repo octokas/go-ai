@@ -1,9 +1,0 @@
-repos:
--   repo: local
-    hooks:
-    -   id: yaml-comments
-        name: YAML comments
-        entry: python scripts/fix_yaml_comments.py
-        language: system
-        types: [yaml]
-        stages: [commit] 
