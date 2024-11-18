@@ -24,18 +24,29 @@ func main() {
 		log.Fatalf("Vector store configuration error: %v", err)
 	}
 
+	// Initialize vector store based on type
+	var store vectorstore.Store
+	var err error
+
+	switch vectorConfig.Type {
+	case "mongodb":
+		store, err = vectorstore.NewMongoStore(vectorConfig.MongoURI, vectorConfig.MongoDatabase)
+	case "postgres":
+		store, err = vectorstore.NewPostgresStore(vectorConfig.PostgresURI, vectorConfig.PostgresDatabase)
+	default:
+		log.Fatalf("Unsupported store type: %s", vectorConfig.Type)
+	}
+
+	if err != nil {
+		log.Fatalf("Failed to create vector store: %v", err)
+	}
+	defer store.Close()
+
 	// Load and validate embedding configuration
 	embeddingConfig := embedding.LoadEmbeddingConfig()
 	if err := embeddingConfig.Validate(); err != nil {
 		log.Fatalf("Embedding configuration error: %v", err)
 	}
-
-	// Initialize vector store
-	store, err := vectorstore.NewStore(vectorConfig)
-	if err != nil {
-		log.Fatalf("Failed to create vector store: %v", err)
-	}
-	defer store.Close()
 
 	// Initialize embedding service
 	embedder, err := embedding.NewEmbeddingService(embeddingConfig)
