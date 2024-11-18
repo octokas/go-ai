@@ -18,6 +18,11 @@ type Response struct {
 	Error    string `json:"error,omitempty"`
 }
 
+func (s *Service) ProcessMessage(message string) (string, error) {
+	// Add your message processing logic here
+	return "Response to: " + message, nil
+}
+
 func NewHandler(service *Service) *Handler {
 	return &Handler{
 		service: service,

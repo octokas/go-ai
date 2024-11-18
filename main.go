@@ -7,6 +7,7 @@ import (
 
 	"github.com/octokas/go-ai/pkg/chat"
 	"github.com/octokas/go-ai/pkg/embedding"
+	"github.com/octokas/go-ai/pkg/llm"
 	"github.com/octokas/go-ai/pkg/router"
 	vectorstore "github.com/octokas/go-ai/pkg/vectorstore"
 )
@@ -43,7 +44,7 @@ func main() {
 	defer embedder.Close()
 
 	// Initialize LLM service
-	llm := chat.NewLLMService()
+	llm := llm.NewLLMService()
 
 	service := chat.NewService(
 		store,
