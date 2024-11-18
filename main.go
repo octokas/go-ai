@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/octokas/go-ai/pkg/embedding"
 	"github.com/octokas/go-ai/pkg/router"
+	vectorstore "github.com/octokas/go-ai/pkg/vectorstore"
 )
 
 func HelloDutonian() string {
@@ -13,6 +15,41 @@ func HelloDutonian() string {
 }
 
 func main() {
+	// Load and validate vector store configuration
+	vectorConfig := vectorstore.LoadVectorStoreConfig()
+	if err := vectorConfig.Validate(); err != nil {
+		log.Fatalf("Vector store configuration error: %v", err)
+	}
+
+	// Load and validate embedding configuration
+	embeddingConfig := embedding.LoadEmbeddingConfig()
+	if err := embeddingConfig.Validate(); err != nil {
+		log.Fatalf("Embedding configuration error: %v", err)
+	}
+
+	// Initialize vector store
+	store, err := vectorstore.NewStore(vectorConfig)
+	if err != nil {
+		log.Fatalf("Failed to create vector store: %v", err)
+	}
+	defer store.Close()
+
+	// Initialize embedding service
+	embedder, err := embedding.NewEmbeddingService(embeddingConfig)
+	if err != nil {
+		log.Fatalf("Failed to create embedding service: %v", err)
+	}
+	defer embedder.Close()
+
+	service := chat.NewService(
+		store,
+		embedder,
+		chat.ServiceConfig{
+			MaxContextDocs:      5,
+			MaxTokensPerDoc:     1000,
+			SimilarityThreshold: 0.7,
+		},
+	)
 
 	// Define flags for different servers
 	apiV1 := flag.Bool("apiv1", false, "Start only APIv1 server")
