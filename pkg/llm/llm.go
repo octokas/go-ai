@@ -24,6 +24,10 @@ type LLMService struct {
 	temperature float64
 }
 
+func NewLLMService() *LLMService {
+	return &LLMService{}
+}
+
 // NewClaudeLLMService creates a new LLM service using Claude
 func NewClaudeLLMService(apiKey string) *LLMService {
 	return &LLMService{
