@@ -35,9 +35,6 @@ func RunChatServer(service *chat.Service) error {
 	// Setup chat routes
 	setupChatRoutes(chatHandler)
 
-	// Update this line to use the handler's method
-	http.HandleFunc("/chat/api", chatHandler.HandleAPI)
-
 	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
