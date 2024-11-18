@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/octokas/go-ai/pkg/chat"
 	"github.com/octokas/go-ai/pkg/embedding"
 	"github.com/octokas/go-ai/pkg/router"
 	vectorstore "github.com/octokas/go-ai/pkg/vectorstore"
@@ -74,10 +75,10 @@ func main() {
 	// Setup routes based on flags
 	if !*apiV2 && !*home && !*apiV1 && !*chat {
 		log.Println("Starting all servers...")
-		go router.HomeServer() // 8080
-		go router.V1Server()   // 2020
-		go router.V2Server()   // 3030
-		go router.ChatServer() // 4040
+		go router.HomeServer()        // 8080
+		go router.V1Server()          // 2020
+		go router.V2Server()          // 3030
+		go router.ChatServer(service) // 4040
 	} else if *apiV2 {
 		go router.V2Server()
 	} else if *home {
@@ -85,7 +86,7 @@ func main() {
 	} else if *apiV1 {
 		go router.V1Server()
 	} else if *chat {
-		go router.ChatServer()
+		go router.ChatServer(service)
 	} else {
 		log.Println("No server type specified. Use -all flag to start all servers")
 		return

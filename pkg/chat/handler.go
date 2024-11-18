@@ -67,3 +67,7 @@ func (h *Handler) writeError(w http.ResponseWriter, message string, status int) 
 		Error: message,
 	})
 }
+
+func HandleAPI(w http.ResponseWriter, r *http.Request) {
+	// Add your API handling logic here
+}

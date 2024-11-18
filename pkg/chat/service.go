@@ -2,6 +2,7 @@ package chat
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/octokas/go-ai/pkg/vectorstore"
 )
@@ -72,4 +73,27 @@ func (s *Service) filterResults(results []vectorstore.SearchResult) []vectorstor
 	}
 
 	return filtered
+}
+
+func (s *Service) constructPrompt(message string, docs []vectorstore.Document) string {
+	context := ""
+	for _, doc := range docs {
+		context += doc.Content + "\n"
+	}
+	return fmt.Sprintf("Context:\n%s\nQuestion: %s", context, message)
+}
+
+// estimateTokens provides a rough estimation of tokens in a text
+// A simple approximation is counting words (splitting by whitespace)
+func estimateTokens(text string) int {
+	return len(strings.Fields(text))
+}
+
+func NewService(store vectorstore.Store, embedder EmbeddingService, llm LLMService, config ServiceConfig) *Service {
+	return &Service{
+		vectorStore: store,
+		embedder:    embedder,
+		llm:         llm,
+		config:      config,
+	}
 }
