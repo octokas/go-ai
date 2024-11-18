@@ -1,0 +1,18 @@
+### REPO SHOWCASE
+---
+> DemoDay
+> Show the knowledge_server with main.go, and knowledge_data both in demo directory
+> Show the knowledge directory
+> run "go run main.go" from the knowledge_server directory in the demo directory
+> localhost:1313
+> upload test file
+> show the knowledge_data, json data uploaded update
+> search the chat window
+
+### CONTENT INTAKE
+---
+> Content sourced via: https://careers.pagerduty.com/home
+
+### DOCUMENTATION
+---
+> https://pagerduty.atlassian.net/wiki/spaces/~71202008b13a565fe54dbaab73aa9282ffd025/pages/4152229928/PagerMate 
