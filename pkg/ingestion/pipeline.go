@@ -1,6 +1,7 @@
 package vectorstore
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -23,8 +24,22 @@ type MongoDocument struct {
 	CreatedAt time.Time              `bson:"created_at"`
 }
 
+type Document struct {
+	ID        string
+	Content   string
+	Source    string
+	Metadata  map[string]interface{}
+	Embedding []float32
+}
+
+type SearchResult struct {
+	Document
+	Score float32
+}
+
 func NewMongoStore(uri, dbName string) (*MongoStore, error) {
-	client, err := mongo.Connect(nil, options.Client().ApplyURI(uri))
+	ctx := context.Background()
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to MongoDB: %w", err)
 	}
@@ -54,42 +69,38 @@ func (s *MongoStore) Insert(docs []Document) error {
 		mongoDocs = append(mongoDocs, mongoDoc)
 	}
 
-	_, err := s.collection.InsertMany(nil, mongoDocs)
+	_, err := s.collection.InsertMany(context.Background(), mongoDocs)
 	return err
 }
 
 func (s *MongoStore) Search(query string, limit int) ([]SearchResult, error) {
 	// Note: 'query' here should be the embedding vector, not the raw text
 	pipeline := mongo.Pipeline{
-		{{
-			"$search": bson.D{
-				{"index", "vector_index"},
-				{"knnBeta", bson.D{
-					{"vector", query},
-					{"path", "embedding"},
-					{"k", limit},
-				}},
-			},
-		}},
-		{{
-			"$project": bson.D{
-				{"score", bson.D{{"$meta", "searchScore"}}},
-				{"content", 1},
-				{"source", 1},
-				{"metadata", 1},
-				{"embedding", 1},
-			},
-		}},
+		{{Key: "$search", Value: bson.D{
+			{Key: "index", Value: "vector_index"},
+			{Key: "knnBeta", Value: bson.D{
+				{Key: "vector", Value: query},
+				{Key: "path", Value: "embedding"},
+				{Key: "k", Value: limit},
+			}},
+		}}},
+		{{Key: "$project", Value: bson.D{
+			{Key: "score", Value: bson.D{{Key: "$meta", Value: "searchScore"}}},
+			{Key: "content", Value: 1},
+			{Key: "source", Value: 1},
+			{Key: "metadata", Value: 1},
+			{Key: "embedding", Value: 1},
+		}}},
 	}
 
-	cursor, err := s.collection.Aggregate(nil, pipeline)
+	cursor, err := s.collection.Aggregate(context.Background(), pipeline)
 	if err != nil {
 		return nil, err
 	}
-	defer cursor.Close(nil)
+	defer cursor.Close(context.Background())
 
 	var results []SearchResult
-	for cursor.Next(nil) {
+	for cursor.Next(context.Background()) {
 		var mongoDoc struct {
 			MongoDocument `bson:",inline"`
 			Score         float32 `bson:"score"`
@@ -115,16 +126,16 @@ func (s *MongoStore) Search(query string, limit int) ([]SearchResult, error) {
 
 func createVectorIndex(collection *mongo.Collection) error {
 	indexModel := mongo.IndexModel{
-		Keys: bson.D{{"embedding", "vector"}},
+		Keys: bson.D{{Key: "embedding", Value: "vector"}},
 		Options: options.Index().
 			SetName("vector_index").
 			SetUnique(false).
 			SetWeights(bson.D{
-				{"numDimensions", 1536}, // For OpenAI embeddings
-				{"similarity", "cosine"},
+				{Key: "numDimensions", Value: 1536}, // For OpenAI embeddings
+				{Key: "similarity", Value: "cosine"},
 			}),
 	}
 
-	_, err := collection.Indexes().CreateOne(nil, indexModel)
+	_, err := collection.Indexes().CreateOne(context.Background(), indexModel)
 	return err
 }

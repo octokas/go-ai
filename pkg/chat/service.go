@@ -7,14 +7,14 @@ import (
 )
 
 type Service struct {
-	vectorStore vectorstore.VectorStore
+	vectorStore vectorstore.Store
 	embedder    EmbeddingService
 	llm         LLMService
 	config      ServiceConfig
 }
 
 type ServiceConfig struct {
-	MaxContextDocs       int
+	MaxContextDocs      int
 	MaxTokensPerDoc     int
 	SimilarityThreshold float32
 }
