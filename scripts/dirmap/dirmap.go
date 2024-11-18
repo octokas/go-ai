@@ -18,7 +18,7 @@ type FileNode struct {
 }
 
 // Language detection map
-var languageMap = map[string]string{
+var LanguageMap = map[string]string{
 	".go":    "Go",
 	".js":    "JavaScript",
 	".ts":    "TypeScript",
@@ -45,7 +45,7 @@ var languageMap = map[string]string{
 	".kt":    "Kotlin",
 }
 
-func scanDirectory(root string, path string) (FileNode, error) {
+func ScanDirectory(root string, path string) (FileNode, error) {
 	info, err := os.Stat(path)
 	if err != nil {
 		return FileNode{}, err
@@ -73,7 +73,7 @@ func scanDirectory(root string, path string) (FileNode, error) {
 			}
 
 			childPath := filepath.Join(path, entry.Name())
-			childNode, err := scanDirectory(root, childPath)
+			childNode, err := ScanDirectory(root, childPath)
 			if err != nil {
 				fmt.Printf("Error scanning %s: %v\n", childPath, err)
 				continue
@@ -84,7 +84,7 @@ func scanDirectory(root string, path string) (FileNode, error) {
 	} else {
 		node.Type = "file"
 		ext := strings.ToLower(filepath.Ext(path))
-		if lang, ok := languageMap[ext]; ok {
+		if lang, ok := LanguageMap[ext]; ok {
 			node.Language = lang
 		}
 	}
@@ -92,7 +92,7 @@ func scanDirectory(root string, path string) (FileNode, error) {
 	return node, nil
 }
 
-func main() {
+func GenerateDirectoryMap() {
 	// Get the current working directory
 	root, err := os.Getwd()
 	if err != nil {
@@ -108,7 +108,7 @@ func main() {
 	}
 
 	// Scan the directory
-	fileTree, err := scanDirectory(root, root)
+	fileTree, err := ScanDirectory(root, root)
 	if err != nil {
 		fmt.Printf("Error scanning directory: %v\n", err)
 		return
