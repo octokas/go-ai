@@ -1,12 +1,8 @@
 package router
 
 import (
-	"log"
 	"net/http"
 
-	"github.com/octokas/go-ai/pkg/config"
-	"github.com/octokas/go-ai/pkg/logger"
-	"github.com/octokas/go-ai/pkg/server"
 	"github.com/octokas/go-ai/pkg/chat"
 )
 
@@ -19,31 +15,31 @@ func chatPromptHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "templates/pagerprompt.html")
 }
 
-func ChatServer() {
-	log.Println("Initializing application...")
+// func ChatServer() {
+// 	log.Println("Initializing application...")
 
-	// Initialize logger
-	logger := logger.New()
-	logger.Info("Starting Chat server...")
+// 	// Initialize logger
+// 	logger := logger.New()
+// 	logger.Info("Starting Chat server...")
 
-	// Setup chat routes
-	setupChatRoutes()
+// 	// Setup chat routes
+// 	setupChatRoutes()
 
-	// Start server
-	log.Printf("[INFO] Chat server starting on port :4040")
-	http.ListenAndServe(":4040", nil)
+// 	// Start server
+// 	log.Printf("[INFO] Chat server starting on port :4040")
+// 	http.ListenAndServe(":4040", nil)
 
-	// Load configuration
-	cfg, err := config.Load()
-	if err != nil {
-		logger.Fatal("Failed to load configuration:", err)
-	}
+// 	// Load configuration
+// 	cfg, err := config.Load()
+// 	if err != nil {
+// 		logger.Fatal("Failed to load configuration:", err)
+// 	}
 
-	// Initialize server
-	srv := server.New(cfg)
+// 	// Initialize server
+// 	srv := server.New(cfg)
 
-	// Start server
-	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
-		logger.Fatal("Server failed:", err)
-	}
-} 
+// 	// Start server
+// 	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
+// 		logger.Fatal("Server failed:", err)
+// 	}
+// }

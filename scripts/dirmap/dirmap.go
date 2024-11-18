@@ -8,6 +8,10 @@ import (
 	"strings"
 )
 
+type DirectoryMap struct {
+	RootPath string
+}
+
 type FileNode struct {
 	Name     string              `json:"name"`
 	Path     string              `json:"path"`
@@ -92,6 +96,12 @@ func ScanDirectory(root string, path string) (FileNode, error) {
 	return node, nil
 }
 
+func NewDirectoryMap() *DirectoryMap {
+	return &DirectoryMap{
+		RootPath: ".", // Default to current directory
+	}
+}
+
 func GenerateDirectoryMap() {
 	// Get the current working directory
 	root, err := os.Getwd()
@@ -134,4 +144,14 @@ func GenerateDirectoryMap() {
 	}
 
 	fmt.Printf("Directory map has been saved to %s\n", outputPath)
+}
+
+func (d *DirectoryMap) GenerateDirectoryMap() error {
+	return filepath.Walk(d.RootPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%s\n", path)
+		return nil
+	})
 }

@@ -10,6 +10,7 @@ import (
 	"github.com/octokas/go-ai/pkg/llm"
 	"github.com/octokas/go-ai/pkg/router"
 	vectorstore "github.com/octokas/go-ai/pkg/vectorstore"
+	"github.com/octokas/go-ai/scripts/dirmap"
 )
 
 func HelloDutonian() string {
@@ -50,12 +51,18 @@ func main() {
 		store,
 		embedder,
 		llm,
-		chat.ServiceConfig{
+		chat.ChatConfig{
 			MaxContextDocs:      5,
 			MaxTokensPerDoc:     1000,
 			SimilarityThreshold: 0.7,
 		},
 	)
+
+	// Generate directory map
+	dmap := dirmap.NewDirectoryMap()
+	if err := dmap.GenerateDirectoryMap(); err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
 
 	// Define flags for different servers
 	apiV1 := flag.Bool("apiv1", false, "Start only APIv1 server")
@@ -80,10 +87,10 @@ func main() {
 	// Setup routes based on flags
 	if !*apiV2 && !*home && !*apiV1 && !*chat {
 		log.Println("Starting all servers...")
-		go router.HomeServer()        // 8080
-		go router.V1Server()          // 2020
-		go router.V2Server()          // 3030
-		go router.ChatServer(service) // Pass service to ChatServer 4040
+		go router.HomeServer() // 8080
+		go router.V1Server()   // 2020
+		go router.V2Server()   // 3030
+		go router.ChatServer() // Pass service to ChatServer 4040
 	} else if *apiV2 {
 		go router.V2Server()
 	} else if *home {
@@ -91,7 +98,9 @@ func main() {
 	} else if *apiV1 {
 		go router.V1Server()
 	} else if *chat {
-		go router.ChatServer(service)
+		go router.ChatServer()
+	} else if *chat {
+		go router.ChatServer(service) // Pass the service to ChatServer
 	} else {
 		log.Println("No server type specified. Use -all flag to start all servers")
 		return
