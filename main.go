@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/octokas/go-ai/knowledge/library"
+	"github.com/octokas/go-ai/knowledge/storage"
 	"github.com/octokas/go-ai/pkg/chat"
 	"github.com/octokas/go-ai/pkg/llm"
 	"github.com/octokas/go-ai/pkg/router"
@@ -114,6 +116,19 @@ func main() {
 		log.Println("No server type specified. Use -all flag to start all servers")
 		return
 	}
+
+	// Initialize storage and library
+	storage, err := storage.NewFileStorage("./knowledge_data")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lib := library.NewLibrary(storage)
+	if err := lib.LoadAllDocuments(); err != nil {
+		log.Fatal(err)
+	}
+
+	//uploadHandler := api.NewUploadHandler(lib)
 
 	// Block forever to keep the program running
 	select {}

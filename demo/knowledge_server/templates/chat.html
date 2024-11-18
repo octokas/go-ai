@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PagerMate - Your Dutonian Assistant</title>
+    <title>PagerMateKnowledge Assistant</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -13,7 +13,7 @@
             background-color: #f9fafb;
         }
         #chat-container {
-            height: calc(100vh - 200px);
+            height: calc(100vh - 280px); /* Adjusted for upload form */
             border: none;
             overflow-y: auto;
             padding: 20px;
@@ -27,7 +27,7 @@
             max-width: 85%;
         }
         .user-message {
-            background-color: #25c151;  /* PagerDuty green */
+            background-color: #25c151;
             color: white;
             margin-left: auto;
         }
@@ -70,21 +70,41 @@
         h1 {
             color: #25c151;
             font-size: 24px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        .upload-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .file-input {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>🤖 PagerMate - Your Dutonian Assistant</h1>
+    <h1>🤖 PagerMate Knowledge Assistant</h1>
+    
+    <div class="upload-form">
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="document" accept=".txt,.md,.json" class="file-input">
+            <button type="submit">Upload Knowledge</button>
+        </form>
+    </div>
+
     <div id="chat-container"></div>
+    
     <div id="input-container">
-        <input type="text" id="message-input" placeholder="Ask me anything about PagerDuty...">
+        <input type="text" id="message-input" placeholder="Ask me anything...">
         <button onclick="sendMessage()">Send</button>
     </div>
 
     <script>
         const chatContainer = document.getElementById('chat-container');
         const messageInput = document.getElementById('message-input');
+        const uploadForm = document.getElementById('upload-form');
 
         function addMessage(message, isUser) {
             const messageDiv = document.createElement('div');
@@ -102,7 +122,7 @@
             messageInput.value = '';
 
             try {
-                const response = await fetch('/chat/api', {
+                const response = await fetch('/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,6 +138,30 @@
             }
         }
 
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(uploadForm);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+                if (data.status === 'success') {
+                    addMessage('✅ Knowledge base updated successfully!', false);
+                } else {
+                    addMessage('❌ Failed to update knowledge base.', false);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('❌ Error uploading file.', false);
+            }
+
+            uploadForm.reset();
+        });
+
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
@@ -125,7 +169,7 @@
         });
 
         // Initial greeting
-        addMessage('👋 Hello! I\'m your Dutonian Assistant. I\'m here to help you learn about PagerDuty and get you up to speed quickly. What would you like to know?', false);
+        addMessage('👋 Hello! I\'m your Knowledge Assistant. I can help you find information from our knowledge base. You can also upload new documents to expand my knowledge!', false);
     </script>
 </body>
 </html> 
