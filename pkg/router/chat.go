@@ -1,9 +1,14 @@
 package router
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
 	"github.com/octokas/go-ai/pkg/chat"
+	"github.com/octokas/go-ai/pkg/config"
+	"github.com/octokas/go-ai/pkg/logger"
+	"github.com/octokas/go-ai/pkg/server"
 )
 
 func setupChatRoutes() {
@@ -15,31 +20,35 @@ func chatPromptHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "templates/pagerprompt.html")
 }
 
-// func ChatServer() {
-// 	log.Println("Initializing application...")
+func RunChatServer(service *chat.Service) error {
+	r := gin.Default()
 
-// 	// Initialize logger
-// 	logger := logger.New()
-// 	logger.Info("Starting Chat server...")
+	log.Println("Initializing application...")
 
-// 	// Setup chat routes
-// 	setupChatRoutes()
+	// Initialize logger
+	logger := logger.New()
+	logger.Info("Starting Chat server...")
 
-// 	// Start server
-// 	log.Printf("[INFO] Chat server starting on port :4040")
-// 	http.ListenAndServe(":4040", nil)
+	// Setup chat routes
+	setupChatRoutes()
 
-// 	// Load configuration
-// 	cfg, err := config.Load()
-// 	if err != nil {
-// 		logger.Fatal("Failed to load configuration:", err)
-// 	}
+	// Start server
+	log.Printf("[INFO] Chat server starting on port :4040")
+	http.ListenAndServe(":4040", nil)
 
-// 	// Initialize server
-// 	srv := server.New(cfg)
+	// Load configuration
+	cfg, err := config.Load()
+	if err != nil {
+		logger.Fatal("Failed to load configuration:", err)
+	}
 
-// 	// Start server
-// 	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
-// 		logger.Fatal("Server failed:", err)
-// 	}
-// }
+	// Initialize server
+	srv := server.New(cfg)
+
+	// Start server
+	if err := srv.Start(); err != nil && err != http.ErrServerClosed {
+		logger.Fatal("Server failed:", err)
+	}
+
+	return r.Run(":4040")
+}

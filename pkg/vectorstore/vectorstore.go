@@ -6,6 +6,25 @@ import (
 	"strings"
 )
 
+type Document struct {
+	ID        string
+	Content   string
+	Source    string
+	Metadata  map[string]interface{}
+	Embedding []float32
+}
+
+type SearchResult struct {
+	Document
+	Score float32
+}
+
+type Store interface {
+	Insert(docs []Document) error
+	Search(query string, limit int) ([]SearchResult, error)
+	Close() error
+}
+
 type VectorStoreConfig struct {
 	Type string // "mongodb" or "postgres"
 
@@ -32,7 +51,7 @@ func LoadVectorStoreConfig() VectorStoreConfig {
 	}
 }
 
-func (c VectorStoreConfig) VectorValidate() error {
+func (c VectorStoreConfig) Validate() error {
 	switch c.Type {
 	case "mongodb":
 		if c.MongoURI == "" {
