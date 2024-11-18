@@ -1,23 +1,23 @@
 package vectorstore
 
-type Document struct {
-	ID        string
-	Content   string
-	Source    string
-	Metadata  map[string]interface{}
-	Embedding []float32
-}
+// type Document struct {
+// 	ID        string
+// 	Content   string
+// 	Source    string
+// 	Metadata  map[string]interface{}
+// 	Embedding []float32
+// }
 
-type SearchResult struct {
-	Document
-	Score float32
-}
+// type SearchResult struct {
+// 	Document
+// 	Score float32
+// }
 
-type Store interface {
-	Insert(docs []Document) error
-	Search(query string, limit int) ([]SearchResult, error)
-	Close() error
-}
+// type Store interface {
+// 	Insert(docs []Document) error
+// 	Search(query string, limit int) ([]SearchResult, error)
+// 	Close() error
+// }
 
 // type VectorStoreConfig struct {
 // 	Type string // "mongodb" or "postgres"
