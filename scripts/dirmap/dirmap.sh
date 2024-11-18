@@ -1,5 +1,19 @@
 #!/bin/zsh
 
+# Check for required tools
+check_deps() {
+    if ! command -v lolcat >/dev/null 2>&1; then
+        echo "Installing lolcat for colorful output..."
+        brew install lolcat
+    fi
+    if ! command -v pv >/dev/null 2>&1; then
+        echo "Installing pv for progress bars..."
+        brew install pv
+    fi
+}
+
+check_deps
+
 # Function to detect file language based on extension
 get_language() {
     case ${1:l} in
@@ -34,8 +48,23 @@ root_dir=$(pwd)
 debug_dir="${root_dir}/debug"
 mkdir -p "$debug_dir"
 
-# Generate file data and pipe to jq
+# Fancy banner
+echo "
+╔═══════════════════════════════════════╗
+║         Directory Map Generator       ║
+║         🗂  File Scanner 2024 🔍      ║
+╚═══════════════════════════════════════╝
+" | lolcat -a -d 1
+
+# Count total files for progress bar
+echo "🔍 Counting files..." | lolcat -a
+total_files=$(find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -type f -o -type d | wc -l)
+
+echo "📂 Processing $total_files files and directories..." | lolcat -a
+
+# Generate file data and pipe to jq with progress bar
 find . -not \( -name ".git" -prune \) -not \( -name "debug" -prune \) -type f -o -type d | sort | \
+pv -l -s $total_files -N "🔍 Scanning  " | \
 while read -r file; do
     if [[ $file == "." ]]; then continue; fi
     
@@ -56,7 +85,7 @@ while read -r file; do
             echo "{\"name\":\"$name\",\"path\":\"$path\",\"type\":\"$type\",\"size\":$size,\"language\":\"$lang\"}"
         fi
     fi
-done | jq -s '
+done | pv -l -s $total_files -N "⚡️ Processing" | jq -s '
     def nest($items):
         reduce ($items[] | select(.path != null) | {
             key: .path | split("/"),
@@ -71,6 +100,9 @@ done | jq -s '
             setpath($item.key; $item.value)
         );
     nest(.)
-' > "$debug_dir/directory_map.json"
+' | pv -l -N "💾 Writing   " > "$debug_dir/directory_map.json"
 
-echo "Directory map has been saved to $debug_dir/directory_map.json" 
+echo "
+✨ Success! Directory map has been saved to:
+📁 $debug_dir/directory_map.json
+" | lolcat -a -d 1 
