@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/gin-gonic/gin"
-	"github.com/octokas/go-ai/pkg/chat/memory"
 	"github.com/octokas/go-ai/pkg/embedding"
 	"github.com/octokas/go-ai/pkg/llm"
+	"github.com/octokas/go-ai/pkg/memory"
 )
 
 type Service struct {
