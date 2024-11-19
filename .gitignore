@@ -77,27 +77,27 @@ temp/
 # Go Specific Projects ###################
 ##########################################
 
-# Workspace File #########################
+# Workspace file #########################
 go.work
 
-# Generated Files ########################
+# Generated files ########################
 gen/
 *.generated.go
 
-# Test Binary, Built w/ `go test -c` #####
+# Test binary, built w/ `go test -c` #####
 *.test
 
-# Coverage Reports #######################
+# Coverage reports #######################
 coverage.html
 coverage.out
 *.out
 *.lcov
 .nyc_output
 
-# Dependency Directories #################
+# Dependency directories #################
 vendor/
 
-# Binary Output Directory ################
+# Binary output directory #################
 build/
 bin/
 pkg/
@@ -132,7 +132,7 @@ mongod.lock
 *.o
 *.obj
 
-# Precompiled Headers ####################
+# Precompiled headers ####################
 *.gch
 *.pch
 

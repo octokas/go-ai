@@ -2,23 +2,49 @@
   "Section Comment": {
     "prefix": "sect",
     "body": [
-      "//=============================================================================",
-      "// ${1:SECTION NAME}",
-      "//=============================================================================",
+      "##########################################",
+      "# ${1:SECTION NAME} ######################",
+      "##########################################",
+      "",
       "",
       "$0"
     ],
-    "description": "Create a section comment"
+    "description": "Create a section comment with 40-char width (36 + 4 for initial `# `), and two blank lines below"
   },
   "Subsection Comment": {
     "prefix": "subsect",
     "body": [
-      "//-----------------------------------------------------------------------------",
-      "// ${1:SUBSECTION NAME}",
-      "//-----------------------------------------------------------------------------",
+      "# ${1:SUBSECTION NAME} ########################",
       "",
       "$0"
     ],
-    "description": "Create a subsection comment"
+    "description": "Create a subsection comment with 40-char width (36 + 4 for initial `# `), with one blank line below"
+  },
+  "Two-line Subsection Comment": {
+    "prefix": "twosubsect",
+    "body": [
+      "# ${1:SUBSECTION NAME FIRST LINE} ########################",
+      "# ${2:SUBSECTION NAME SECOND LINE} ######################",
+      "",
+      "$0"
+    ],
+    "description": "Create a two-line subsection comment with 40-char width (36 + 4 for initial `# `), with one blank line below"
+  },
+  "Author Comment": {
+    "prefix": "author",
+    "body": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "##########################################",
+      "# 💞 @octokas ############################",
+      "##########################################"
+    ],
+    "description": "Add author signature with eight blank lines above"
   }
 }
