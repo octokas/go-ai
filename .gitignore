@@ -1,53 +1,166 @@
-# Binaries for programs and plugins
+##########################################
+# VSCode Settings ########################
+##########################################
+
+!.vscode/
+
+##########################################
+# ALT IDE Specific Files #################
+##########################################
+
+.idea/
+*.swp
+*.swo
+*.code-workspace
+.history/
+
+##########################################
+# MacOS Specific Files ###################
+##########################################
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+##########################################
+# Binaries for Programs and Plugins ######
+##########################################
+
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool
 *.out
+*.app
 
-# Dependency directories (remove the comment below to include it)
-vendor/
+##########################################
+# Environment Files ######################
+##########################################
 
-# Go workspace file
-go.work
-
-# Binary output directory
-build/
-
-# IDE specific files
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# Log files
-*.log
-
-# Temporary files
-tmp/
-temp/
-
-# Generated files
-gen/
-*.generated.go
-
-# Coverage reports
-coverage.html
-coverage.out
-
-# Env file
 .env
 *.env
 .env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+##########################################
+# Log Files ##############################
+##########################################
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+##########################################
+# Temporary Files ########################
+##########################################
+
+tmp/
+temp/
+*.tmp
+*.temp
+
+##########################################
+# Go Specific Projects ###################
+##########################################
+
+# Workspace File #########################
+go.work
+
+# Generated Files ########################
+gen/
+*.generated.go
+
+# Test Binary, Built w/ `go test -c` #####
+*.test
+
+# Coverage Reports #######################
+coverage.html
+coverage.out
+*.out
+*.lcov
+.nyc_output
+
+# Dependency Directories #################
+vendor/
+
+# Binary Output Directory ################
+build/
+bin/
+pkg/
+
+##########################################
+# Node.js Specific #######################
+##########################################
+
+node_modules/
+dist/
+.npm
+.yarn-integrity
+.next
+
+##########################################
+# MongoDB ################################
+##########################################
+
+data/
+mongod.lock
+*.bson
+*.mongojs
+
+##########################################
+# C/C++ Specific #########################
+##########################################
+
+# Prerequisites ##########################
+*.d
+
+# Object files ###########################
+*.o
+*.obj
+
+# Precompiled Headers ####################
+*.gch
+*.pch
+
+# Libraries ##############################
+*.lib
+*.a
+*.la
+*.lo
+
+# CMake ##################################
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+compile_commands.json
+_deps
+.cache/
+
+##########################################
+# Shell History ##########################
+##########################################
+
+.bash_history
+.zsh_history
+
+##########################################
+# Certificates ###########################
+##########################################
+
+*.pem
+*.key
+*.crt
