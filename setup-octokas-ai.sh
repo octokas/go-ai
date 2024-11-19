@@ -161,6 +161,7 @@ fi
 if ! command -v air &> /dev/null; then
     echo "Installing Air..."
     /bin/bash -c "$(curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin)"
+    export PATH=$PATH:$(go env GOPATH)/bin
     echo "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.zshrc
     air init
 fi
