@@ -160,7 +160,9 @@ fi
 # Install Air for live reload
 if ! command -v air &> /dev/null; then
     echo "Installing Air..."
-    brew install cosmtrek/tools/air
+    /bin/bash -c "$(curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin)"
+    echo "export PATH=$PATH:$(go env GOPATH)/bin" >> ~/.zshrc
+    air init
 fi
 
 # Install MongoDB
