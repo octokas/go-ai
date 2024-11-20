@@ -24,6 +24,12 @@ do
     fi
 done
 
+## alt
+# for ext in "${extensions[@]}"; do
+#     echo "Installing $ext..."
+#     code --install-extension "$ext"
+# done
+
 echo -e "\n${BLUE}Installation Complete!${NC}"
 
 

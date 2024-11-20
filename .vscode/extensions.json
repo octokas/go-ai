@@ -12,7 +12,9 @@
     "shan.code-settings-sync",
     "tamasfe.even-better-toml",
     "windmilleng.vscode-go-autotest",
-    "bierner.markdown-emoji"
+    "bierner.markdown-emoji",
+    "techiecouch.docker-essentials",
+    "mshimonov.aws-codepack"
     // Add more extensions here
   ]
 }

@@ -2,7 +2,12 @@
 # VSCode Settings ########################
 ##########################################
 
-!.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/snippets.json
+!.vscode/tasks.json
+!.vscode/python.json
 
 ##########################################
 # ALT IDE Specific Files #################
