@@ -1,34 +1,41 @@
 {
-  "Section Comment": {
+  "Standard Section": {
     "prefix": "sect",
     "body": [
+      "",
       "##########################################",
-      "# ${1:SECTION NAME} ######################",
+      "# ${1:🔑} ${2:SECTION NAME} ##############",
       "##########################################",
       "",
       "",
       "$0"
     ],
-    "description": "Create a section comment with 40-char width (36 + 4 for initial `# `), and two blank lines below"
+    "description": "Create a standard section comment (40-char width, emoji + text)"
   },
-  "Subsection Comment": {
+  "Single-line Subsection": {
     "prefix": "subsect",
     "body": [
-      "# ${1:SUBSECTION NAME} ########################",
+      "",
+      "##########################################",
+      "# ${1:🔑} ${2:SUBSECTION NAME} ###########",
+      "##########################################",
       "",
       "$0"
     ],
-    "description": "Create a subsection comment with 40-char width (36 + 4 for initial `# `), with one blank line below"
+    "description": "Create a single-line subsection comment (40-char width, emoji + text)"
   },
-  "Two-line Subsection Comment": {
-    "prefix": "twosubsect",
+  "Multi-line Subsection": {
+    "prefix": "multisubsect",
     "body": [
-      "# ${1:SUBSECTION NAME FIRST LINE} ########################",
-      "# ${2:SUBSECTION NAME SECOND LINE} ######################",
+      "",
+      "##########################################",
+      "# ${1:🔑} ${2:FIRST LINE} ################",
+      "# \t${3:SECOND LINE} ###################",
+      "##########################################",
       "",
       "$0"
     ],
-    "description": "Create a two-line subsection comment with 40-char width (36 + 4 for initial `# `), with one blank line below"
+    "description": "Create a multi-line subsection comment (40-char width, emoji + text)"
   },
   "Author Comment": {
     "prefix": "author",
@@ -43,8 +50,10 @@
       "",
       "##########################################",
       "# 💞 @octokas ############################",
-      "##########################################"
+      "##########################################",
+      "",
+      ""
     ],
-    "description": "Add author signature with eight blank lines above"
+    "description": "Add author signature (8 blank lines above, 2 below)"
   }
 }
