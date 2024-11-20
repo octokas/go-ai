@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "golang.go",
+    "mongodb.mongodb-vscode",
+    "ms-vscode.cpptools",
+    "dunstontc.vscode-go-syntax",
+    "github.vscode-pull-request-github",
+    "jasonnutter.search-node-modules",
+    "monokai.theme-monokai-pro-vscode",
+    "shan.code-settings-sync",
+    "tamasfe.even-better-toml",
+    "windmilleng.vscode-go-autotest",
+    "bierner.markdown-emoji"
+    // Add more extensions here
+  ]
+}
