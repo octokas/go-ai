@@ -1,13 +1,45 @@
-.PHONY: run build test clean
+.PHONY: all build run test clean docker
 
-run:
-	air
+# Variables
+BINARY_NAME=go-kas
+DOCKER_IMAGE=go-kas
+
+all: clean build
 
 build:
-	go build -o bin/go-kas
+	@echo "Building..."
+	go build -o bin/$(BINARY_NAME) main.go
+
+run:
+	@echo "Running with air..."
+	air
 
 test:
-	go test ./...
+	@echo "Running tests..."
+	go test -v ./...
 
 clean:
+	@echo "Cleaning..."
+	go clean
 	rm -rf bin/
+
+docker-build:
+	@echo "Building Docker image..."
+	docker build -t $(DOCKER_IMAGE) .
+
+docker-run:
+	@echo "Running Docker container..."
+	docker run -p 8080:8080 $(DOCKER_IMAGE)
+
+deps:
+	@echo "Downloading dependencies..."
+	go mod download
+	go mod tidy
+
+lint:
+	@echo "Linting..."
+	golangci-lint run
+
+dev: deps
+	@echo "Starting development server..."
+	air
