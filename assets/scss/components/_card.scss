@@ -1,0 +1,37 @@
+.card {
+  --card-radius: 12px;
+  --card-padding: 24px;
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+  background: var(--color-surface);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  transition: all var(--duration-moderate) var(--ease-smooth);
+
+  // Apple-like hover effect
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: var(--card-shadow);
+    }
+  }
+
+  .card-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .card-description {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    margin-top: 8px;
+  }
+
+  // Dark mode adjustments
+  [data-theme="dark"] & {
+    --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+}

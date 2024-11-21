@@ -1,141 +1,117 @@
-# 🤖 Kaska's Go AI Project Template 
+# Design System Documentation
 
-A modern template repository for building AI/ML applications in Go! 🚀
+## Foundations
 
-## ✨ Features
+### Color System
+We blend Apple's clean aesthetic with Monokai Pro's rich color palette:
 
-- Clean-ish project structure optimized for AI/ML workloads
-- Common AI dependencies pre-configured
-- Docker support out of the box 🐳
-- Example ML pipeline setup
-- Testing framework ready to go ✅
-- Automated changelog generation
-- Security-first approach
+```scss
+// Light Mode (Apple-inspired)
+--color-background: #ffffff        // Primary background
+--color-surface: #f5f5f7          // Secondary background
+--color-primary: #0071e3          // Primary actions
+--color-text: #1d1d1f             // Primary text
+--color-text-secondary: #86868b    // Secondary text
 
-## 🚀 Getting Started
-
-1. Click "Use this template" to create your new repository
-2. Clone your new repo locally
-3. Run `go mod tidy` to install dependencies
-4. Run `make init` to set up your development environment
-5. Start with a simple example: `make run-hello`
-
-### Quick Start Example
-```go
-package main
-
-import "fmt"
-
-func main() {
-	fmt.Println("Hello, friend! Welcome to your AI project template!")
+// Dark Mode (Monokai Pro-inspired)
+--color-background-dark: #2d2a2e   // Primary background
+--color-surface-dark: #363537      // Secondary background
+--color-primary-dark: #78dce8      // Primary actions
+--color-text-dark: #fcfcfa        // Primary text
+--color-accent: {
+  green: #a9dc76,                 // Success states
+  yellow: #ffd866,                // Warning states
+  orange: #fc9867,                // Alert states
+  purple: #ab9df2,                // Info states
+  red: #ff6188                    // Error states
 }
 ```
 
-### Example ML Pipeline (coming soon)
+### Typography
+Following Apple's SF Pro family:
 
-## Project Structure
-```
-|-- cmd/ # Main application binary
-|  |-- api/ # API definitions
-|  |-- worker/ # Worker binary
-|-- internal/ # Internal packages
-|  |-- ai/ # AI specific logic
-|  |-- pipeline/ # ML pipeline
-|  |-- config/ # Configuration
-|  |-- db/ # Database logic
-|  |-- logger/ # Logging logic
-|  |-- metrics/ # Metrics logic
-|  |-- server/ # Server logic
-|-- pkg/ # Reusable packages
-|-- scripts/ # Build, maintenance, and utility scripts
-|  |-- changelog.go # Changelog generator
-|-- deploy/ # Deployment configuration
-|  |-- Dockerfile
-|  |-- docker-compose.yml
-|  |-- .env.example
-|-- docs/ # Documentation
-|-- examples/ # Example code
-|-- tests/ # Test suite
-|-- .github/ # GitHub Actions configuration
-|-- .gitignore # Git ignore file
-|-- Dockerfile # Docker configuration
-|-- go.mod # Go module file
-|-- Makefile # Makefile for convenience
-```
-_Changed a bit and needs severe cleanup, thanks to presenting stuff, etc_
+```scss
+// Font Families
+--font-sf-pro: "SF Pro Text"
+--font-sf-pro-display: "SF Pro Display"
+--font-sf-mono: "SF Mono"
 
-## 🛠️ Development
-
-### Prerequisites
-
-- Go 1.21 or higher
-- Docker (optional)
-- Make
-
-### Common Commands
-
-```bash
-make init          ## Initialize development environment
-make test          ## Run tests
-make build         ## Build the project
-make run-hello     ## Run the Hello Dutonian example
-make changelog     ## Generate changelog
+// Type Scale (Apple-standard)
+--text-xs: 11px    // Labels, badges
+--text-sm: 13px    // Secondary text
+--text-base: 15px  // Body text
+--text-lg: 17px    // Emphasized body
+--text-xl: 20px    // Subheadings
+--text-2xl: 24px   // Section headers
+--text-3xl: 28px   // Page titles
+--text-4xl: 34px   // Hero text
 ```
 
-### Aggressive Code Cleanup
+### Motion
+Apple-inspired spring animations:
 
-```bash
-## More aggressive cache clearing
-go clean -cache -modcache -i -r
+```scss
+// Timing Functions
+--ease-smooth: cubic-bezier(0.2, 0, 0.38, 0.9)
+--ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55)
 
-## And/or delete the replace directive and run tidy again
-go mod edit -dropreplace github.com/octokas/go-ai
-go mod tidy       ## Clean the project
+// Duration Scale
+--duration-instant: 100ms  // Micro-interactions
+--duration-fast: 150ms    // Button states
+--duration-moderate: 200ms // Component transitions
+--duration-slow: 300ms    // Page transitions
 ```
 
-## 📝 Changelog
+## Component Naming Conventions
 
-Changes are automatically tracked and documented in `CHANGELOG.md`. To generate the changelog:
+### Structure
+- Component wrapper: `[component-name]`
+- Component elements: `[component-name]-[element]`
+- Component modifiers: `[component-name]--[modifier]`
+- State classes: `is-[state]` or `has-[state]`
 
-```bash
-go run scripts/changelog.go
+Example:
+```html
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Title</h3>
+  </div>
+  <div class="card-content">
+    <!-- Content -->
+  </div>
+</div>
 ```
 
-The changelog generator scans commit messages following [Conventional Commits](https://www.conventionalcommits.org/) format.
+### State Classes
+```scss
+.is-active      // Current/selected state
+.is-disabled    // Disabled state
+.is-loading     // Loading state
+.is-error       // Error state
+.has-error      // Contains an error
+.has-icon       // Contains an icon
+```
 
-## 🔒 Security
-
-### Reporting Security Issues
-
-We take security seriously. If you discover a security vulnerability, please follow these steps:
-
-1. **Do NOT open a public issue**
-2. Send a private email to security@awestomates.com
-3. Include detailed information about the vulnerability
-4. Allow up to 48 hours for an initial response
-
-### Security Best Practices
-
-- All dependencies are automatically scanned for vulnerabilities
-- Regular security audits are performed
-- Updates are promptly released for security patches
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details _(if not there, it's not built yet, but my philosophy is simple: don't be an a**hole, keep code free)_.
-
-## 🙋‍♂️ Getting Help
-
-- Check out the [documentation](docs/README.md)
-- Email me if you need something via [Awestomates](awestomates@gmail.com) if you're an ostomate, or [@octokas](octokas@gmail.com) if you're using this in another way
-- Join our [Slack community](https://discord.gg/awestomates)
-- Open an issue for bug reports or feature requests
-
+## File Structure
+```
+design-system/
+├── foundations/
+│   ├── colors/
+│   │   ├── _variables.scss
+│   │   ├── _light.scss
+│   │   └── _dark.scss
+│   ├── typography/
+│   │   └── _scale.scss
+│   └── motion/
+│       └── _spring.scss
+├── components/
+│   ├── core/
+│   │   ├── _buttons.scss
+│   │   └── _cards.scss
+│   └── patterns/
+│       ├── _navigation.scss
+│       └── _forms.scss
+└── themes/
+    ├── light.scss
+    └── dark.scss
+```

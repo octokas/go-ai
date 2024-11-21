@@ -1,0 +1,46 @@
+.list-view {
+  --list-background: var(--color-surface);
+  --list-border: var(--color-border);
+  --cell-height: 44px;
+  --cell-padding: 16px;
+
+  background: var(--list-background);
+  border-radius: 12px;
+  overflow: hidden;
+
+  .list-section-header {
+    padding: var(--cell-padding);
+    padding-bottom: 8px;
+
+    .section-title {
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .list-cell {
+    min-height: var(--cell-height);
+    padding: 0 var(--cell-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--list-border);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-smooth);
+
+    &:hover {
+      background: var(--color-surface-hover);
+    }
+
+    &:active {
+      background: var(--color-surface-active);
+    }
+  }
+
+  // Dark mode adjustments
+  [data-theme="dark"] & {
+    --list-background: var(--color-surface-dark);
+    --list-border: var(--color-border-dark);
+  }
+}

@@ -1,0 +1,39 @@
+<div class="list-view" role="list">
+  <div class="list-section">
+    <div class="list-section-header">
+      <h2 class="section-title sf-pro-display">{{ .title }}</h2>
+    </div>
+
+    {{ range .items }}
+    <div class="list-cell"
+         role="listitem"
+         data-state="{{ .state }}"
+         data-href="{{ .href }}">
+      <div class="cell-content">
+        {{ with .icon }}
+        <div class="cell-icon {{ .class }}">
+          <svg><use href="#icon-{{ .name }}"></use></svg>
+        </div>
+        {{ end }}
+
+        <div class="cell-text">
+          <div class="cell-title">{{ .title }}</div>
+          {{ with .subtitle }}
+          <div class="cell-subtitle">{{ . }}</div>
+          {{ end }}
+        </div>
+      </div>
+
+      {{ with .accessory }}
+      <div class="cell-accessory">
+        {{ if eq .type "disclosure" }}
+        <svg class="icon-chevron"><use href="#icon-chevron-right"></use></svg>
+        {{ else if eq .type "value" }}
+        <span class="accessory-value">{{ .value }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+</div>

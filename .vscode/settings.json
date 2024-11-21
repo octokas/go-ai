@@ -1,0 +1,209 @@
+{
+    // Editor Core Settings
+    "go.formatOnSave": false,
+    "editor.formatOnSave": false,
+    "go.saveBeforeType": false,
+    "go.lintOnSave": "off",
+    "go.lintOnType": "off",
+    "go.vetOnSave": "off",
+    "editor.tabSize": 2,
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": false,
+    // File Handling
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.associations": {
+        "*.jsonc": "jsonc",
+        "*.zsh": "shellscript",
+        "*.m": "objective-c"
+    },
+    // Terminal Configuration
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.env.osx": {
+        "PATH": "/opt/homebrew/bin:${env:PATH}"
+    },
+    // Go Language Settings
+    "go.useLanguageServer": true,
+    "go.toolsManagement.autoUpdate": true,
+    "go.formatTool": "gofmt",
+    "[go]": {
+        "editor.defaultFormatter": "golang.go",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+        }
+    },
+    // C/C++/Objective-C Settings
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[objective-c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    // Python Configuration
+    "python.defaultInterpreterPath": "${env:HOME}/.pyenv/shims/python3",
+    "python.formatting.provider": "black",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.indexing": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+        }
+    },
+    // JavaScript/TypeScript Settings
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    // JSON Handling
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    // Git & GitHub Configuration
+    "git.enableCommitSigning": true,
+    "git.autofetch": true,
+    "github.gitAuthentication": true,
+    // Security Settings
+    "security.workspace.trust.enabled": true,
+    // UI & Theming
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.startupEditor": "none",
+    "time.format": "HH:mm",
+    // Debug & Error Handling
+    "debug.onTaskErrors": "showErrors",
+    // Extension Management
+    "extensions.ignoreRecommendations": true,
+    "extensions.recommendations": [
+        // Go Development
+        "766b.go-outliner", // Go code structure visualization and navigation
+        "defaltd.go-coverage-viewer", // Go code coverage visualization
+        "dunstontc.vscode-go-syntax", // Go syntax highlighting enhancements
+        "furkanozalp.go-syntax", // Additional Go syntax highlighting
+        "golang.go", // Official Go language support
+        "italypaleale.go-playground", // Go playground integration
+        "maracko.json-to-go", // Convert JSON to Go structs
+        "msyrus.go-doc", // Go documentation
+        "ohanedan.lowlight-go-errors", // Go error highlighting
+        "premparihar.gotestexplorer", // Go test explorer
+        "quillaja.goasm", // Go assembly support
+        "r3inbowari.gomodexplorer", // Go modules explorer
+        "windmilleng.vscode-go-autotest", // Go auto-testing
+        "xmtt.go-mod-grapher", // Go module dependency graphs
+        "zsh.go-snippets", // Go code snippets
+        // AWS Tools
+        "antstack.aws-js-code-snippet", // AWS JavaScript/TypeScript code snippets
+        "common-fate.aws-console-toolkit", // AWS Console access within VS Code
+        "dannysteenman.cdk-snippets", // AWS CDK code snippets
+        "dannysteenman.cloudformation-yaml-snippets", // CloudFormation YAML snippets
+        "loganarnett.lambda-snippets", // AWS Lambda code snippets
+        "mark-tucker.aws-cli-configure", // AWS CLI configuration helper
+        "mziyabo.vscode-codedeploy", // AWS CodeDeploy integration
+        "necatiarslan.aws-access-vscode-extension", // AWS access management
+        "necatiarslan.aws-s3-vscode-extension", // AWS S3 management
+        "petarmarinov.aws-stepfunctions-console", // AWS Step Functions visualization
+        "rafaelrodrigues.convertto-ssm", // AWS SSM parameter conversion
+        "rafwilinski.dynamodb-vscode-snippets", // DynamoDB snippets
+        "vscode-aws-console.vscode-aws-console", // AWS Console integration
+        "webdevsnyc.aws-sam-snippets", // AWS SAM snippets
+        // C/C++/Objective-C
+        "akiramiyakoda.cppincludeguard", // Automatically adds include guards to C/C++ header files
+        "danielpinto8zz6.c-cpp-compile-run", // C/C++ compilation and running tools
+        "danielpinto8zz6.c-cpp-project-generator", // C/C++ project structure generator
+        "franneck94.c-cpp-runner", // C/C++ project runner and debugger
+        "mitaki28.vscode-clang", // Clang integration for C/C++
+        "ms-vscode.cpptools", // C/C++ tools
+        "vadimcn.vscode-lldb", // LLDB debugger support
+        // Python
+        "ms-python.debugpy", // Python debugging
+        "ms-python.python", // Python language support
+        "ms-python.vscode-pylance", // Python language server
+        "njpwerner.autodocstring", // Python docstring generation
+        // Docker & Containers
+        "george3447.docker-run", // Docker container runner
+        "igorjrd.docker-stats", // Docker container statistics
+        "jeff-hykin.better-dockerfile-syntax", // Enhanced Dockerfile syntax
+        "jonrad.docker-diary-vscode", // Docker container logging and management
+        "ms-azuretools.vscode-docker", // Docker integration
+        "quentingruber.dockerfiletemplate", // Dockerfile templates
+        "sandipchitale.docker-dive", // Docker layer analysis
+        // Remote Development
+        "github.codespaces", // GitHub Codespaces integration
+        "ms-vscode-remote.remote-containers", // Remote container development
+        "ms-vscode-remote.remote-ssh", // SSH remote development
+        "ms-vscode-remote.remote-ssh-edit", // SSH config editing
+        "ms-vscode-remote.remote-wsl", // Windows Subsystem for Linux integration
+        "ms-vscode-remote.vscode-remote-extensionpack", // Remote development pack
+        "ms-vscode.remote-explorer", // Remote connection explorer
+        "ms-vscode.remote-server", // Remote server support
+        // Git & GitHub
+        "donjayamanne.githistory", // Enhanced Git history viewer
+        "github.vscode-pull-request-github", // GitHub Pull Request integration
+        "mfelling.bfg-vscode", // BFG Repo Cleaner integration
+        "mhutchie.git-graph", // Git history visualization
+        // Formatting & Code Style
+        "esbenp.prettier-vscode", // Code formatting with Prettier
+        "harryhopkinson.prettier-configuration", // Prettier configuration helper
+        "hyperproof.vscode-ext-prettier-java", // Java code formatting with Prettier
+        "nkurasawa.vscode-ignore-prettier", // Prettier ignore file support
+        "oderwat.indent-rainbow", // Indentation highlighting
+        "passionkind.prettier-vscode-with-tabs", // Prettier with tabs support
+        "spywhere.guides", // Indent guides
+        // Data & API Tools
+        "brunoventura.sqltools-athena-driver", // Amazon Athena SQL tools integration
+        "estivo.csv-editor", // CSV file editor with table view
+        "humao.rest-client", // REST API client
+        "mechatroner.rainbow-csv", // Colorized CSV viewing
+        "mtxr.sqltools", // SQL tools and database management
+        "phplasma.csv-to-table", // CSV to table conversion
+        "postman.postman-for-vscode", // Postman API testing
+        // File & Config Management
+        "bodil.prettier-toml", // TOML file formatting with Prettier
+        "hilleer.yaml-plus-json", // Enhanced YAML and JSON tools
+        "kennylong.kubernetes-yaml-formatter", // Kubernetes YAML formatting
+        "pascalreitermann93.vscode-yaml-sort", // YAML sorting
+        "redhat.vscode-yaml", // YAML support
+        "tamasfe.even-better-toml", // Enhanced TOML support
+        // UI & Theme
+        "jonbellah.monokai-after-dark", // Dark theme variant of Monokai
+        "monokai.theme-monokai-pro-vscode", // Monokai Pro theme
+        "usernamehw.errorlens", // Inline error display
+        // Markdown & Documentation
+        "shd101wyy.markdown-preview-enhanced", // Enhanced Markdown preview
+        "simonguo.vscode-markdown-table-sort", // Markdown table sorting
+        "yzhang.markdown-all-in-one", // Comprehensive Markdown support
+        // Navigation & Productivity
+        "cmacu.gotoanything", // Enhanced file navigation
+        "dorian-marchal.add-line-break", // Add line breaks with keyboard shortcuts
+        "jasonnutter.search-node-modules", // Search node_modules directory
+        "mishkinf.goto-next-previous-member", // Code navigation between members
+        "shawtung.vscode-commentlinedown", // Comment line navigation
+        "trixnz.go-to-method", // Method navigation
+        // Security & Secrets
+        "checkpoint.spectral-checkpoint-vscode-extension", // API security testing and validation
+        "pomdtr.secrets", // Secrets management
+        // Miscellaneous
+        "alexmiyakoda.adobe-dev-utils", // Adobe development utilities and snippets
+        "anteger.vscode-touchgrass", // Reminds you to take breaks from coding
+        "awsxxf.scriptnotebook", // Notebook-style script execution environment
+        "awsxxf.serialterminal", // Serial port terminal interface
+        "codeium.codeium", // AI code completion and suggestions
+        "filipac.expose-helper", // Laravel Expose helper
+        "motionland.texttojsxbin", // Convert text to JSX
+        "philnash.ngrok-for-vscode", // Ngrok integration
+        "shan.code-settings-sync", // Settings synchronization
+        "tuur29.lottie-viewer", // Lottie animation preview
+        "zpfz.ae-jsx-runner" // JSX runner
+    ]
+}

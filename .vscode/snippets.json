@@ -1,0 +1,59 @@
+{
+  "Standard Section": {
+    "prefix": "sect",
+    "body": [
+      "",
+      "##########################################",
+      "# ${1:🔑} ${2:SECTION NAME} ##############",
+      "##########################################",
+      "",
+      "",
+      "$0"
+    ],
+    "description": "Create a standard section comment (40-char width, emoji + text)"
+  },
+  "Single-line Subsection": {
+    "prefix": "subsect",
+    "body": [
+      "",
+      "##########################################",
+      "# ${1:🔑} ${2:SUBSECTION NAME} ###########",
+      "##########################################",
+      "",
+      "$0"
+    ],
+    "description": "Create a single-line subsection comment (40-char width, emoji + text)"
+  },
+  "Multi-line Subsection": {
+    "prefix": "multisubsect",
+    "body": [
+      "",
+      "##########################################",
+      "# ${1:🔑} ${2:FIRST LINE} ################",
+      "# \t${3:SECOND LINE} ###################",
+      "##########################################",
+      "",
+      "$0"
+    ],
+    "description": "Create a multi-line subsection comment (40-char width, emoji + text)"
+  },
+  "Author Comment": {
+    "prefix": "author",
+    "body": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "##########################################",
+      "# 💞 @octokas ############################",
+      "##########################################",
+      "",
+      ""
+    ],
+    "description": "Add author signature (8 blank lines above, 2 below)"
+  }
+}
