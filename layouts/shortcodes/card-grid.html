@@ -1,0 +1,14 @@
+{{ $cards := .Page.Params.cards }}
+
+<div class="card-grid">
+    {{ range $index, $card := $cards }}
+        {{ $delay := mul $index 100 }}
+        {{ partial "components/card.html" (dict
+            "title" $card.title
+            "content" $card.content
+            "image" $card.image
+            "actions" $card.actions
+            "delay" $delay
+        ) }}
+    {{ end }}
+</div>

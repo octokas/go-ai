@@ -1,0 +1,45 @@
+.nav-bar {
+  --nav-height: 44px;
+  --nav-blur: 20px;
+
+  height: var(--nav-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(var(--nav-blur));
+  background: rgba(var(--color-background-rgb), 0.8);
+  border-bottom: 1px solid var(--color-border);
+
+  .nav-content {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+
+    &:hover {
+      background: var(--color-surface-hover);
+    }
+
+    &:active {
+      background: var(--color-surface-active);
+    }
+  }
+
+  // Dark mode adjustments
+  [data-theme="dark"] & {
+    background: rgba(var(--color-background-dark-rgb), 0.8);
+  }
+}

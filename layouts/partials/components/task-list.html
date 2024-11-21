@@ -1,0 +1,25 @@
+{{ define "task-list" }}
+<div class="task-list"
+     data-controller="task-list"
+     data-task-list-url="{{ .listEndpoint }}">
+
+  <div class="task-list-header">
+    <h2 class="task-list-title">{{ .title }}</h2>
+    <div class="task-list-actions">
+      <button class="btn-icon" data-action="task-list#createTask">
+        <svg class="icon-plus"></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="task-list-content">
+    {{ range .tasks }}
+    {{ partial "components/task-item.html" . }}
+    {{ end }}
+  </div>
+
+  <template id="task-item-template">
+    <!-- Template for dynamically added tasks -->
+  </template>
+</div>
+{{ end }}

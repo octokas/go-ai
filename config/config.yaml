@@ -1,0 +1,28 @@
+server:
+  port: 3000
+  host: "localhost"
+  read_timeout: 15s
+  write_timeout: 15s
+  environment: "development"
+
+database:
+  sqlite:
+    path: "./data/go-kas.db"
+  mongo:
+    uri: "mongodb://localhost:27017"
+    database: "go-kas"
+
+logging:
+  level: "debug"
+  format: "json"
+  output_path: "stdout"
+
+security:
+  jwt_secret: "your-secret-key"
+  token_duration: 24h
+
+api:
+  version: "v1"
+  rate_limit: 100
+  rate_window: 1m
+  graphql_path: "/graphql"

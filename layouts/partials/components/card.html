@@ -1,0 +1,28 @@
+{{ define "card" }}
+<div class="card"
+     data-component="card"
+     data-state="{{ .state | default "default" }}">
+
+    <div class="card-content sf-pro-display">
+        {{ with .icon }}
+        <div class="card-icon">
+            <svg class="icon">
+                <use xlink:href="#icon-{{ . }}"></use>
+            </svg>
+        </div>
+        {{ end }}
+
+        <h3 class="card-title sf-pro-display">{{ .title }}</h3>
+        <p class="card-description sf-pro">{{ .description }}</p>
+
+        {{ with .action }}
+        <button class="btn-primary sf-pro-text animate-button">
+            {{ . }}
+            <svg class="icon-chevron">
+                <use xlink:href="#icon-chevron-right"></use>
+            </svg>
+        </button>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

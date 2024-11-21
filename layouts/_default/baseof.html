@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" data-theme="{{ .Site.Params.theme | default "light" }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+
+    <!-- SF Pro Typography -->
+    <link rel="stylesheet" href="https://fonts.apple.com/fonts/sf-pro">
+
+    {{ $style := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+<body class="sf-pro">
+    <div class="app-wrapper">
+        {{ partial "components/navigation.html" . }}
+
+        <main class="main-content">
+            {{ block "main" . }}{{ end }}
+        </main>
+    </div>
+</body>
+</html>

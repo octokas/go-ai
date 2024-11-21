@@ -1,0 +1,24 @@
+:root {
+  // Light Mode - Apple-inspired
+  --color-background: #ffffff;
+  --color-surface: #f5f5f7;
+  --color-primary: #0071e3;
+  --color-text: #1d1d1f;
+  --color-text-secondary: #86868b;
+
+  // Dark Mode - Monokai Pro inspired
+  &[data-theme="dark"] {
+    --color-background: #2d2a2e;
+    --color-surface: #363537;
+    --color-primary: #78dce8;
+    --color-text: #fcfcfa;
+    --color-text-secondary: #939293;
+
+    // Monokai Pro accent colors
+    --color-green: #a9dc76;
+    --color-yellow: #ffd866;
+    --color-orange: #fc9867;
+    --color-purple: #ab9df2;
+    --color-red: #ff6188;
+  }
+}

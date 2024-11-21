@@ -1,6 +1,11 @@
 {
     // Editor Core Settings
-    "editor.formatOnSave": true,
+    "go.formatOnSave": false,
+    "editor.formatOnSave": false,
+    "go.saveBeforeType": false,
+    "go.lintOnSave": "off",
+    "go.lintOnType": "off",
+    "go.vetOnSave": "off",
     "editor.tabSize": 2,
     "editor.rulers": [
         80,

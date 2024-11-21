@@ -1,0 +1,45 @@
+// SF Pro Typography System
+:root {
+  // Font Families
+  --font-sf-pro: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sf-pro-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sf-mono: "SF Mono", ui-monospace, monospace;
+
+  // Font Sizes (Apple-like scale)
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+  --text-4xl: 34px;
+
+  // Font Weights
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  // Letter Spacing
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+}
+
+// Typography Mixins
+@mixin sf-heading-1 {
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+}
+
+@mixin sf-body {
+  font-family: var(--font-sf-pro);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  letter-spacing: var(--tracking-normal);
+  line-height: 1.5;
+}
