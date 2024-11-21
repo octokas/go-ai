@@ -55,7 +55,7 @@
     "python.analysis.indexing": true,
     "python.analysis.diagnosticMode": "workspace",
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python",
+        //"editor.defaultFormatter": "ms-python.python",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "always"

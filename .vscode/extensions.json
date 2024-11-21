@@ -11,10 +11,12 @@
     "monokai.theme-monokai-pro-vscode",
     "shan.code-settings-sync",
     "tamasfe.even-better-toml",
-    "windmilleng.vscode-go-autotest",
     "bierner.markdown-emoji",
     "techiecouch.docker-essentials",
-    "mshimonov.aws-codepack"
+    "mshimonov.aws-codepack",
+    "lovedev.lovedev-extensions-pack",
+    "mikestead.dotenv",
+    "github.codespaces"
     // Add more extensions here
   ]
 }

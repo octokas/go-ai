@@ -1,74 +1,85 @@
 go-kas/
-├── cmd/
-│   └── server/
-│       └── logging.go
-│       └── server.go
-│       └── ngrok.go
-│       └── healthcheck.go
-├── go/
-│   ├── routers/
-│   │   ├── routers.go      # Main router setup
-│   │   ├── home.go         # Home route handlers
-│   │   ├── tasks.go        # Task route handlers
-│   │   └── assets.go       # Asset route handlers
-│   │   └── users.go        # User route handlers
-│   │   └── calendar.go    # Calendar route handlers
-│   │   └── reports.go     # Report route handlers
-│   │   └── apiv1.go      # API v1 routes
-│   │   └── apiv2.go      # API v2 routes
-│   │   └── graphql.go    # GraphQL routes
-│   │   └── design.go     # Design routes
-│   │   └── animation.go  # Animation routes
-│   ├── internal/
-│   │   ├── internal.go     # Internal package setup
-│   │   ├── databases/
-│   │   │   └── db.go       # Database connections
-│   │   │   └── mongo.go    # MongoDB connections
-│   │   │   └── sqlite.go   # SQLite connections
-│   │   ├── apis/
-│   │   │   └── api.go      # API routes
-│   │   └── models/
-│   │       ├── task.go
-│   │       ├── subtask.go
-│   │       └── asset.go
-│   │       └── calendar.go
-│   ├── handlers/
-│   │   ├── handlers.go     # Common handler utilities
-│   │   ├── tasks.go
-│   │   └── assets.go
-│   │   └── calendar.go
-│   └── pkg/
-│       ├── pkg.go          # Package utilities
-│   │   └── config/
-│   │       └── config.go   # Configuration utilities
-│   │   └── design/
-│   │       └── c4d.go      # C4D Animation utilities
-│   │   └── animation/
-│   │       └── animation.go   # Animation utilities
-│   │       └── ae.go          # After Effects Animation utilities
-│   │       └── calvary.go     # Calvary Animation utilities
-│   │   └── design/
-│   │       └── c4d.go         # C4D Design utilities
-│   │       └── sketch.go     # Sketch Design utilities
-│   │       └── sketch3D.go   # Sketch 3D Design utilities
-│   │   └── database/
-│   │       └── database.go   # Database utilities
-│   │   └── reporting/
-│   │       └── reporting.go   # Reporting utilities
-│   │       └── security.go   # Security utilities
-│   │       └── healthcheck.go   # Healthcheck utilities
-│   │       └── accessibility.go   # Accessibility utilities
-│   │       └── rate-limiting.go   # Rate limiting utilities
-│   │   └── middleware/
-│   │       └── middleware.go # Middleware utilities
-│   ├── tests/
-│   │   ├── tests.go
-│   │   ├── server_tests.go
-│   │   ├── router_tests.go
-│   │   ├── handler_tests.go
-│   │   ├── model_tests.go
-│   │   ├── integration_tests.go
-│   │   ├── unit_tests.go
-├── design-system/          # Our design system
-├── ui/                     # Hugo templates
-└── Makefile
+├── config/ # for configuration logic
+│   └── config.go ## (serves as main for config)
+├── logging/ # for logging concerns
+│   └── logging.go ## (serves as entry point for logging)
+├── server/ # for server logic
+│   └── server.go ## (serves as entry point for server)
+├── utils/ # for utility functions
+│   └── utils.go ## (serves as entry point for utils)
+│   └── ngrok.go
+│   └── healthcheck.go
+├── routers/ # for handling routing logic
+│   ├── routers.go ## (serves as entry point for routers)
+│   └── home.go
+│   └── tasks.go
+│   └── assets.go
+│   └── users.go
+│   └── calendar.go
+│   └── reports.go
+│   └── apiv1.go
+│   └── apiv2.go
+│   └── graphql.go
+│   └── design.go
+│   └── animation.go
+├── handlers/ # for request and response logic
+│   └── handlers.go ## (serves as entry point for handlers)
+│   └── tasks.go
+│   └── assets.go
+│   └── users.go
+│   └── calendar.go
+│   └── reports.go
+├── services/ # for business logic
+│   └── services.go ## (serves as entry point for services)
+├── models/ # for data structures/models
+│   └── models.go ## (serves as entry point for models)
+│   └── task.go
+│   └── asset.go
+│   └── user.go
+│   └── calendar.go
+│   └── report.go
+├── tests/ # for comprehensive testing logic
+│   ├── tests.go ## (serves as entry point for tests)
+│   ├── server_tests.go
+│   ├── router_tests.go
+│   ├── handler_tests.go
+│   ├── model_tests.go
+│   ├── integration_tests.go
+│   ├── unit_tests.go
+├── databases/ # for database logic with migrations support
+│   ├── databases.go ## (serves as entry point for databases)
+│   ├── mongo.go
+│   ├── sqlite.go
+│   ├── migrations/ # for database schema migrations
+│   ├── migrations.go ## (serves as entry point for migrations)
+├── reporting/ # for reporting concerns
+│   ├── reporting.go ## (serves as entry point for reporting)
+│   ├── security.go
+│   ├── healthcheck.go
+│   ├── accessibility.go
+├── middleware/ # for cross-cutting concerns
+│   ├── middleware.go ## (serves as entry point for middleware)
+│   ├── rate-limiting.go
+├── apis/ # for api logic
+│   ├── api.go ## (serves as entry point for apis)
+│   ├── v1.go
+│   ├── v2.go
+│   ├── graphql.go
+├── pkg/ # for shared packages
+│   ├── pkg.go ## (serves as entry point for packages)
+├── ae/ # for after effects
+│   ├── ae.go ## (serves as entry point for after effects)
+├── c4d/ # for c4d
+│   ├── c4d.go ## (serves as entry point for c4d)
+├── sketch3d/ # for sketch3d
+│   ├── sketch3d.go ## (serves as entry point for sketch3d)
+├── design-system/ # our design system
+├── docs/ # guides and documentation
+├── hugo/ # hugo frontend ui
+├── assets/ # static assets
+├── scripts/ # scripts for automation
+├── main.go # essential entry point
+├── README.md # project documentation
+├── go.mod # module declaration
+├── go.sum # dependency resolution
+└── Makefile # automation script for building and running the project

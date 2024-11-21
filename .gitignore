@@ -1,171 +1,29 @@
-##########################################
-# VSCode Settings ########################
-##########################################
-
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-!.vscode/snippets.json
-!.vscode/tasks.json
-!.vscode/python.json
-
-##########################################
-# ALT IDE Specific Files #################
-##########################################
-
-.idea/
-*.swp
-*.swo
-*.code-workspace
-.history/
-
-##########################################
-# MacOS Specific Files ###################
-##########################################
-
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-##########################################
-# Binaries for Programs and Plugins ######
-##########################################
-
+# Binaries
+bin/
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-*.out
-*.app
 
-##########################################
-# Environment Files ######################
-##########################################
-
-.env
-*.env
-.env.local
-.env.*.local
-.env.development
-.env.test
-.env.production
-
-##########################################
-# Log Files ##############################
-##########################################
-
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-##########################################
-# Temporary Files ########################
-##########################################
-
-tmp/
-temp/
-*.tmp
-*.temp
-
-##########################################
-# Go Specific Projects ###################
-##########################################
-
-# Workspace file #########################
-go.work
-
-# Generated files ########################
-gen/
-*.generated.go
-
-# Test binary, built w/ `go test -c` #####
+# Test binary, built with 'go test -c'
 *.test
 
-# Coverage reports #######################
-coverage.html
-coverage.out
+# Output of the go coverage tool
 *.out
-*.lcov
-.nyc_output
 
-# Dependency directories #################
+# Dependency directories
 vendor/
 
-# Binary output directory #################
-build/
-bin/
-pkg/
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
 
-##########################################
-# Node.js Specific #######################
-##########################################
+# Air tmp directory
+tmp/
 
-node_modules/
-dist/
-.npm
-.yarn-integrity
-.next
-
-##########################################
-# MongoDB ################################
-##########################################
-
-data/
-mongod.lock
-*.bson
-*.mongojs
-
-##########################################
-# C/C++ Specific #########################
-##########################################
-
-# Prerequisites ##########################
-*.d
-
-# Object files ###########################
-*.o
-*.obj
-
-# Precompiled headers ####################
-*.gch
-*.pch
-
-# Libraries ##############################
-*.lib
-*.a
-*.la
-*.lo
-
-# CMake ##################################
-CMakeCache.txt
-CMakeFiles
-cmake_install.cmake
-compile_commands.json
-_deps
-.cache/
-
-##########################################
-# Shell History ##########################
-##########################################
-
-.bash_history
-.zsh_history
-
-##########################################
-# Certificates ###########################
-##########################################
-
-*.pem
-*.key
-*.crt
+# OS specific files
+.DS_Store
+*.DS_Store
