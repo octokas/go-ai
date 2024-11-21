@@ -1,7 +1,7 @@
 package config
 
 import (
-	"log"
+	"errors"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -29,12 +29,13 @@ type APIConfig struct {
 	Version string
 }
 
-func Load() *Config {
+func Load() (*Config, error) {
 	if err := godotenv.Load(); err != nil {
-		log.Printf("Warning: .env file not found")
+		// Not returning this error as it's okay if .env doesn't exist
+		// We'll use default values or environment variables
 	}
 
-	return &Config{
+	cfg := &Config{
 		Port:        GetEnv("PORT", "8080"),
 		Environment: GetEnv("ENV", "development"),
 		MongoDB: MongoDBConfig{
@@ -42,13 +43,20 @@ func Load() *Config {
 			DBName: GetEnv("DB_NAME", "go-kas"),
 		},
 		JWT: JWTConfig{
-			Secret: GetEnv("JWT_SECRET", "your-secret-key-here"),
+			Secret: GetEnv("JWT_SECRET", ""),
 			Expiry: GetEnv("JWT_EXPIRY", "24h"),
 		},
 		API: APIConfig{
 			Version: GetEnv("API_VERSION", "v1"),
 		},
 	}
+
+	// Validate critical configuration
+	if cfg.JWT.Secret == "" {
+		return nil, errors.New("JWT_SECRET is required")
+	}
+
+	return cfg, nil
 }
 
 func GetEnv(key, fallback string) string {
