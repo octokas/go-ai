@@ -22,7 +22,7 @@ func NewServer(cfg *config.Config) *Server {
 	handler := middleware.Chain(
 		router,
 		middleware.Logger,
-		middleware.Recovery,
+		//middleware.Recovery,
 		middleware.CORS,
 	)
 
